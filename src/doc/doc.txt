@@ -1,5 +1,0 @@
-上下翻页模式:readmode=1
-http://wap.cmread.com/r/401740560/401740564.htm?ln=28802_452709__1_&t1=17017&cm=M32Z0002&page=1&nid=41074473&purl=%2Fr%2Fl%2Fr.jsp%3Ft1%3D17017%26cm%3DM32Z0002%26page%3D1%26nid%3D41074473%26readmode%3D2%26cid%3D401740564%26bid%3D401740560&vt=3&readmode=1
-
-左右翻页模式:readmode=2
-http://wap.cmread.com/r/401740560/401740564.htm?ln=28802_452709__1_&t1=17017&cm=M32Z0002&page=1&nid=41074473&purl=%2Fr%2Fl%2Fr.jsp%3Ft1%3D17017%26cm%3DM32Z0002%26page%3D1%26nid%3D41074473%26readmode%3D1%26cid%3D401740564%26bid%3D401740560&vt=3&readmode=2
