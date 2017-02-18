@@ -1,0 +1,165 @@
+<!-- 书籍详情页面 -->
+<script type="text/template" id="book_detail_page_template">
+	
+    <header class="nav-bar">
+		<div class="left">
+			<a class="back" href="javascript:window.history.back()"></a> <strong><%=title%></strong>
+		</div>
+		<div class="right">
+			<a class="search" href="#search"></a> <a class="last-read" href="#latest-readed"><span>最近阅读</span></a>
+		</div>
+	</header>
+    
+	<%if(data){%>
+	<section class="book">
+		<div class="info">
+			<div class="i-cont bd-bottom">
+				<div class="i-intr">
+					<div class="i-left">
+						<img src="<%=data['imgUrl']%>" />
+					</div>
+					<div class="i-right">
+						<div class="i-right-top">
+							<p><%=title%></p>
+							<div class="i-right-star">
+								<span class="stars">
+									<% for(var i=0;i<5;i++){ %>
+										<%if(i<data.score){%>
+										<em class="star"></em>
+										<%}else{%>
+										<em class="star gray"></em>
+										<%}%>
+									<%}%>
+								</span>
+								<span class="score"><%=data['score']%>分</span>
+							</div>
+						</div>
+						<div class="i-right-bottom">
+							<p><%=data['author']%></p>
+							<p><%=data['catename']%> | <%=data['completed']%></p>
+							<p><%=data['wordCountFormated']%>字</p>
+						</div>
+					</div>
+				</div>
+				<div class="i-btns">
+					<div class="i-send">
+						<a href="javscript:void(0);">
+							发送至桌面
+						</a>
+					</div>
+					<%if(data['chapterUrl']){ %>
+					<div class="i-read">
+						<a data-p6="1" href="<%=data['chapterUrl']%>" target="_blank">
+							继续阅读
+						</a>
+					</div>
+					<%}else{%>
+					<div class="i-read">
+						<a data-p6="1" href="<%=data['url']%>" target="_blank">
+							开始阅读
+						</a>
+					</div>
+					<%}%>
+				</div>
+				<div class="i-syno">
+					<%=data["description"]%>
+					<div class="arrow">
+						<label></label>
+					</div>
+				</div>
+			</div>
+			<%if(catalog){%>
+			<div class="i-list">
+				<p class="i-title">目录 | 共<%=catalog["totalsize"]%>章</p>
+				<%if(catalog.lastChapter) {/* js */ %>
+				<p><a href="<%=catalog.lastChapter['url']%>"><span><%=catalog.lastChapter["chapterName"]%></span><label><%=catalog.lastChapter['updateTimeAgo']%></label></a></p>
+				<%} /* js */ %>
+				<%for(var i=0;i<catalog.list.length;i++){%>
+				<p><a href="<%=catalog.list[i]['url']%>"><%=catalog.list[i]["chapterName"]%></a></p>
+				<%}%>
+			</div>
+			<div class="common-go bd-top">
+				<a href="#book/catalog/<%=data['bookid']%>">查看更多目录</a>
+			</div>
+			<%}%>
+		</div>
+		<div class="recommend">
+			<%if(authorBooks&&authorBooks.length>0){%>
+			<div class="r-cont">
+				<div class="r-title"> 作者还写过 </div>
+				<div class="r-list">
+					<ul>
+						<%for(var i=0;i<authorBooks.length;i++){%>
+						<li>
+							<a href="#book/detail/<%=authorBooks[i]['bookid']%>/<%=authorBooks[i]['title']%>">
+								<div class="r-img">
+									<img src="<%=authorBooks[i]['imgUrl']%>" />
+								</div>
+							</a>
+							<div class="r-name"> <%=authorBooks[i]["title"]%> </div>
+						</li>
+						<%}%>
+					</ul>
+				</div>
+			</div>
+			<%if(authorBooksTotalSize>3){%>
+			<div class="common-go bd-top">
+				<a href="#books/authorbooks/作者还写过/<%=data['authorId']%>/0/100">查看全部</a>
+			</div>
+			<%}%>
+			<%}%>
+		</div>
+		<div id="reader_books_section" class="recommend">
+			<%if(readerBooks){%>
+			<div class="r-cont">
+				<div class="r-title"> 书友还读过 </div>
+				<div class="r-list">
+					<ul>
+						<%for(var i=0;i<readerBooks.length;i++){%>
+						<li>
+							<a href="#book/detail/<%=readerBooks[i]['bookid']%>/<%=readerBooks[i]['title']%>">
+								<div class="r-img">
+									<img src="<%=readerBooks[i]['imgUrl']%>" />
+								</div>
+							</a>
+							<div class="r-name"> <%=readerBooks[i]["title"]%> </div>
+						</li>
+						<%}%>
+					</ul>
+				</div>
+			</div>
+			<div class="common-go bd-top">
+				<a href="javascript:void(0)">换一批</a>
+			</div>
+			<%}%>
+		</div>
+	</section>
+	<section class="book-detail-console-footer">
+		<div class="layer">
+			<div class="l-read">
+				<a href="javscript:void(0);">
+					发送至桌面
+				</a>
+			</div>
+			<%if(data['chapterUrl']){%>
+			<div class="l-send">
+				<a data-p6="10" href="<%=data['chapterUrl']%>" target="_blank">
+					继续阅读
+				</a>
+			</div>
+			<%}else{%>
+			<div class="l-send">
+				<a data-p6="10" href="<%=data['url']%>" target="_blank">
+					开始阅读
+				</a>
+			</div>
+			<%} /* js */ %>
+		</div>
+	</section>
+	<footer class="footer">
+		【图书信息】书籍来源：咪咕数字传媒有限公司
+	</footer>
+	<%}else{%>
+		<p class="section-loading" style="color: #999;font-size: .35rem; margin: 0;padding: 0;position: absolute;left: 0;right: 0;top: 50%;height: .5rem;line-height: .5rem; margin-top: -.25rem;text-align: center;">加载中...</p>  
+	<%} /* js */ %>
+</script>

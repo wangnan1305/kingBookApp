@@ -1,0 +1,295 @@
+@charset "utf-8";
+/**
+ *  Note:  item视图通用styles
+ */
+
+.section-h3 {
+    padding: 0 0 0 .294rem;
+    border-left: .088rem solid $color-main;
+    margin: .088rem 0 .394rem 0;
+    line-height: .44rem;
+    font-size: .38rem;
+    font-weight: 400;
+    color: $text-base;
+    vertical-align: middle;
+    
+    .all {
+        float: right;
+        color: #b0b0b0;
+        font-weight: 400;
+        padding: 0 .203rem;
+        border-radius: 1rem;
+        font-size: 0.305rem;
+        margin-top: -.117rem;
+        height: 0.518rem;
+        line-height: 0.518rem;
+        box-sizing: border-box;
+        @include highlight(rgba(0,0,0,0) !important);
+        
+        &:active {
+            background: #f1f1f1;
+            border: none;
+        }
+        &.nav .bg {
+            background: transparent url($path-img+'/sprite-others.png') -4px -24px no-repeat;
+            background-size: 33px;
+            float: right;
+            width: 12px;
+            height: 15px;
+            vertical-align: middle;
+        }
+    }
+}
+
+.item-view {
+    margin-bottom: $spacing-main;
+	padding: $spacing-main;
+	background-color: #ffffff;
+	-webkit-overflow-scrolling:behavior;
+    
+    &.top {
+        padding: $spacing-main $spacing-main 0 $spacing-main;
+    }
+    &.top1 {
+        margin-bottom: 0;
+        margin-top: -$spacing-main;
+        padding: $spacing-main $spacing-main 0 $spacing-main;
+    }
+    ol {
+        overflow: visible !important;
+    }
+    
+    ol,
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        overflow: hidden;
+    }
+    figure {
+        margin: 0;
+    }
+
+    li.third {
+        margin-right: 0;
+        border-bottom: none;
+    }
+    .fig {
+        float: left;
+        text-align: center;
+        width: 30%;
+        margin-right: 5%;
+        
+        figcaption  {
+            margin: 0.294rem 0.1rem;
+            color: #969696;
+            max-height: 1.058rem;
+            height: 1.058rem;
+            line-height: 0.529rem;
+            font-size: 0.333rem;
+            @include overflow(2);
+        }
+        
+        a {
+            display: block;
+            padding: 0.145rem;
+            box-shadow: $box-shadow-base;
+            box-sizing: border-box;
+            margin: 0 auto;
+            width: 2.79rem;
+
+        }
+
+        img {
+            width: 2.5rem;
+            height: 3.33rem;
+            display: block;
+        }
+    }
+
+    .word {
+        a {
+            display: block;
+            height: 1.0925rem;
+            line-height: 1.0925rem;
+
+        }
+
+        .book {
+            color: $text-base;
+            max-width: 70%;
+            font-size: 0.411rem;
+            line-height: 1.0925rem;
+            font-size: 0.361rem;
+            @include overflow(1);
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .readers {
+            float: right;
+            color: #b7b7b7;
+            font-size: 0.2777rem;
+            white-space: nowrap;
+        }
+    }
+}
+
+.word {
+    clear: both;
+}
+
+.time-free {
+    
+    a {
+        position: relative;
+        &:before {
+            content: '';
+            width: 0.935rem;
+            height: 0.935rem;
+            position: absolute;
+            top: 0rem;
+            left: 0rem;
+            background: url($path-img+'/time-free.png');
+            background-size: cover;
+        }
+    }
+    &.fig a:before {
+        top: .145rem;
+        left: .145rem;
+    }
+}
+
+.like-see {
+
+    .fig-word {
+        overflow: hidden;
+        padding-bottom: 0.44rem;
+        a {
+            display: block;
+            overflow: hidden;
+            text-decoration: none;
+        }
+         img {
+            float: left;
+            margin-right: 0.294rem;
+            width: 2.5rem;
+            height: 3.33rem;
+        }
+         p {
+            margin: 0.294rem 0;
+            color: #b6b6b6;
+        }
+         .author {
+            display: inline-block;
+            max-width: 22%;
+            overflow: hidden;
+            vertical-align: middle;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            float: left;
+        }
+        .portrait {
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            background: #d9d9d9 url($path-img+'/sprite-others.png') 0 -1px no-repeat;
+            background-size: 24px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: .147rem;
+            float: left;
+        }
+        .type {
+            color: #12bfc2;
+            padding-left: .15rem;
+            margin-left: .15rem;
+            float: left;
+            margin-right: 0.25rem;
+        }
+
+        h4 {
+            font-size: 0.411rem;
+            max-width: 70%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-weight: normal;
+            color: $text-base;
+            margin-top: 0.2rem;
+        }
+        p {
+            margin: .3rem 0 .4rem 0;
+            color: #b6b6b6;
+            font-size: 0.35rem;
+            &.line {
+                height: 14px;
+                overflow: hidden;
+                line-height: 14px;
+                font-size: 13px;
+            }
+        }
+        .readers {
+            vertical-align: bottom;
+            background: #f7f7f7;
+            padding: 0 6px;
+            border-radius: 1rem;
+            font-size: 12px;
+            line-height: 14px;
+            height: 14px;
+            float: left;
+        }
+
+        .description {
+            height: 1.0rem;
+            line-height: 0.50rem;
+            @include overflow(2);
+        }
+    }
+
+    .words {
+        font-size: 0.294rem;
+        background-color: #f7f7f7;
+        border-radius: 0.147rem;
+        padding: 0 0.0294rem;
+        display: inline-block;
+        margin-left: 0.0588rem;
+    }
+
+    .word {
+        border-bottom: none;
+        
+        .type {
+            background-color: #ff693b;
+            color: #fff;
+            padding: 0rem .088rem;
+            border-radius: .088rem;
+            margin-right: .147rem;
+            line-height: 0.47rem;
+            font-size: 0.277rem;
+            display: inline-block;
+            height: 0.47rem;
+            box-sizing: border-box;
+        }
+
+        .status {
+            color: #5d9f1d;
+            margin-left: 0.147rem;
+            line-height: 0.411rem;
+            font-size: .2777rem;
+            vertical-align: middle;
+        }
+
+        .book {
+            max-width: 42%;
+            line-height: 0.4rem;
+            vertical-align: middle;
+//            @include overflow(1);
+//            display: inline-block;
+//            white-space: nowrap;
+            
+        }
+
+    }
+    
+}
+

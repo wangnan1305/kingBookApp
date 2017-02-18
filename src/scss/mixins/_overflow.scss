@@ -1,0 +1,16 @@
+@charset "utf-8";
+/**
+ *  Create Date: 2016-09-05
+ *  Note:  超出显示隐藏
+ *  Use:   @include overflow    -- 参数使用默认值 
+           @include overflow(2) -- 传递参数
+ */
+
+
+@mixin overflow($opacity:1) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $opacity;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

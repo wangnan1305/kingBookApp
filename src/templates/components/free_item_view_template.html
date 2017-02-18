@@ -1,0 +1,67 @@
+<!-- 免费标签页面列表 -->
+<script type="text/template" id="free_item_view_template">
+	<%if(data){%>
+	<div class="time"><%=leavetime%></div>
+	<%for(var i=0;i<data.length;i++){%>
+		<%if(i<data.length-1){%>
+		<section class="item-view">
+			<h3 class="section-h3"><%=data[i]["title"]%></h3>
+			<ul>
+				<%for(var j=0;j<data[i]["book"].length;j++){%>
+					<%if((j+1)%3!=0){%>
+					<li class="fig time-free">
+					<%}else{%>
+					<li class="fig time-free third">
+					<%}%>
+					<figure>
+						<a href="#book/detail/<%=data[i]['book'][j]['bookid']%>/<%=data[i]['book'][j]['title']%>" data-title="<%=data[i]['book'][j]['title']%>" data-bookid="<%=data[i]['book'][j]['bookid']%>" data-score="<%=data[i]['book'][j]['score']%>" data-isfromweb="<%=data[i]['book'][j]['isfromweb']%>" data-completed="<%=data[i]['book'][j]['completed']%>" href="<%=data[i]['book'][j]['url']%>" data-section="<%=i%>" class="read">
+							<img src="<%=data[i]['book'][j]['imgUrl']%>" width="75" height="115" alt="">
+						</a>
+						<figcaption><%=data[i]['book'][j]['title']%></figcaption>
+					</figure>
+				</li>
+				<%}%>
+			</ul>
+	   </section>
+		<%}else{%>
+			<!-- 最后一个用列表显示 -->
+			<section class="content book-list">
+				<div class="rank-week">
+					<ul>
+						<h3 class="section-h3"><%=data[i]["title"]%></h3>
+						<%for(var j=0;j<data[i]["book"].length;j++){%>
+						<li class="fig-word time-free">
+							<a href="#book/detail/<%=data[i]['book'][j]['bookid']%>/<%=data[i]['book'][j]['title']%>" data-title="<%=data[i]['book'][j]['title']%>" data-bookid="<%=data[i]['book'][j]['bookid']%>" data-score="<%=data[i]['book'][j]['score']%>" data-isfromweb="<%=data[i]['book'][j]['isfromweb']%>" data-completed="<%=data[i]['book'][j]['completed']%>" href="<%=data[i]['book'][j]['url']%>" data-section="<%=i%>" class="read">
+								<img src="<%=data[i]['book'][j]['imgUrl']%>" width="75" height="100" alt="书封面">
+								
+                                <div class="fig-word-right">
+                                    <h4><%=data[i]['book'][j]['title']%></h4>
+                                    <p><span class="portrait"></span><span class="author"><%=data[i]['book'][j]['author']%></span>
+                                    </p>
+                                    <p class="rate">
+                                        <span class="stars">
+                                            <% for(var k=0;k<5;k++){ %>
+                                                <%if(k<data[i]['book'][j].score){%>
+                                                <em class="star"></em>
+                                                <%}else{%>
+                                                <em class="star gray"></em>
+                                                <%}%>
+                                            <%}%>
+                                        </span>
+                                        <span class="score"><%=data[i]['book'][j]['score']%>分</span>
+                                        <span class="fromWeb"><span class="bookType"></span></span>
+                                     </p>
+                                     <p class="description"><%=data[i]['book'][j]['description']%>
+                                    </p>
+                                </div>
+                                
+							</a>
+						</li>
+						<%}%>
+				   </ul>
+				</div>
+			</section>
+		<%}%>
+	<%}%>
+	<%}%>
+</script>

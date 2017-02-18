@@ -1,0 +1,79 @@
+<!-- 书籍目录页面 -->
+<script type="text/template" id="book_catalog_page_template">
+
+ 	<header class="nav-bar">
+		<div class="left">
+			<a class="back" href="javascript:window.history.back()"></a> <strong>目录</strong>
+		</div>
+		<div class="n-right right">
+			<div class="read last-read">
+				<%if(reverse==0){%>
+				<a data-reverse="1" href="javascript:void(0)">降序</a>
+				<%}else{%>
+				<a data-reverse="0" href="javascript:void(0)">升序</a>
+				<%}%>
+			</div>
+		</div>
+	</header>
+
+
+	<!-- <header class="nav-bar">
+		<div class="n-left">
+			<div class="back"><a href="javascript:window.history.back();"></a></div>目录
+		</div>
+		<div class="n-right">
+			<div class="read">
+				<%if(reverse==0){%>
+				<a data-reverse="1" href="javascript:void(0)">降序</a>
+				<%}else{%>
+				<a data-reverse="0" href="javascript:void(0)">升序</a>
+				<%}%>
+			</div>
+		</div>
+	</header> -->
+	<%if(data){%>
+	<section class="list">
+		<div class="l-title">
+			<label class="all">共<%=totalsize%>章</label>
+			<%if(totalsize>100){%>
+			<label class="partition"><%=pagerLabel%></label>
+			<%}%>
+		</div>
+		<div class="l-cont">
+			<ul>
+			
+				<%for(var i=0;i<data.length;i++){%>
+					<%if(data[i]["feeStatus"] == 0 || data[i]["feeStatus"]=="0"){%>
+					<div class="bd-bottom"><a href="<%=data[i]['url']%>" target="_blank"><li><%=data[i]["chapterName"]%></li></a></div>
+					<%}else{%>
+					<div class="bd-bottom"><a href="<%=data[i]['url']%>" target="_blank"><li class="pay"><%=data[i]["chapterName"]%><label>$</label></li></a></div>
+					<%}%>
+				<%}%>	
+			</ul>
+		</div>
+		<div class="chapter">
+			<div class="close"></div>
+			<div class="c-cont">
+				<ul>
+				<%if(!reverse){ /* js */ %>
+					<%for(var i=0;i<totalpage;i++){%>
+					<%var label=(i*pagesize+1)+"-"+(i+1)*pagesize+"章节";%>
+					<%if(i>=totalpage-1){label=(i*pagesize+1)+"-"+totalsize+"章节";}%>
+					<li><a data-page="<%=i+1%>" href="javascript:void(0)"><%=label%></a></li>
+					<%}%>
+					<%}else{ %>
+						<%for(var i=totalpage-1;i>=0;i--){%>
+						<%var label=(totalsize-(totalpage-1-i)*pagesize)+"-"+(totalsize-(totalpage-i)*pagesize+1)+"章节";%>
+						<%if(i==0){label=(totalsize-(totalpage-1)*pagesize)+"-"+"01"+"章节";}%>
+						<li><a data-page="<%=totalpage-i%>" href="javascript:void(0)"><%=label%></a></li>
+						<%}%>
+					<%}%>
+				
+				</ul>
+			</div>
+		</div>
+	</section>
+	<%}else{%>
+	<section class="section-loading"><p>数据加载中...</p></section>
+	<%}%>
+</script>

@@ -1,0 +1,52 @@
+@charset "utf-8";
+/**
+ *  Note:  底层styles
+ */
+
+html {
+	font-size: $html-default-font-size;
+	font-family: sans-serif;            /* 1 */
+	-ms-text-size-adjust: 100%;         /* 2 */
+	-webkit-text-size-adjust: 100%;     /* 2 */
+}
+
+.htmlhidden {
+    width: 100%;
+    position: fixed;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	-webkit-overflow-scrolling:touch;
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+	background-color: transparent;
+    @include highlight(rgba(0,0,0,0.1) !important);
+    
+    
+    &:active{
+//        background: rgba(0,0,0,0.1) !important;
+    }
+    
+    &:hover,
+    &:active,
+    &:link,
+    &:focus {
+        text-decoration: none !important;
+    }
+}
+
+ul,li  { 
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+img { 
+    border: none;
+    outline: none; 
+}
+

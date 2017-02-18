@@ -1,0 +1,36 @@
+<!-- 书列表item视图模版 -->
+<script type="text/template" id="book_list_item_view_template">
+	<a href="#book/detail/<%=data['bookid']%>/<%=data['title']%>" data-title="<%=data['title']%>" data-bookid="<%=data['bookid']%>" data-completed="<%=data['completed']%>" data-score="<%=data['score']%>" data-isfromweb="<%=data['isfromweb']%>" class="read" data-href="<%=data['url']%>">
+		<%if(data.isFromWeb && data['completed'] == "完本"){%>
+        <div class="wanben"></div>
+        <%}%>
+        <img src="<%=data['imgUrl']%>" width="75" height="100" alt="书封面">
+		<div class="fig-word-right">
+            <h4><%=data['title']%></h4>
+            <p><span class="portrait"></span><span class="author"><%=data['author']%></span>
+            </p>
+            <p class="rate">
+                <span class="stars">
+                    <% for(var i=0;i<5;i++){ %>
+                        <%if(data.score<=0 || i<data.score){%>
+                        <em class="star"></em>
+                        <%}else{%>
+                        <em class="star gray"></em>
+                        <%}%>
+                    <%}%>
+                </span>
+                <span class="score"><%=data['score']%>分</span>
+                <span class="fromWeb">
+                    <%if(data.navtitle!=data.catename){%>
+                    <span class="type"><%=data.catename%></span>
+                    <%}%>
+                    <%if(data.isFromWeb){%>
+                    <span class="type words"><%=data['wordCountFormated']%>字</span>
+                    <%}%>
+                </span>
+            </p>
+            <p class="description"><%=data['description']%>
+            </p>
+        </div>
+	</a>
+</script>

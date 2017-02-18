@@ -1,0 +1,130 @@
+@charset "utf-8";
+/**
+ *  Note:  搜索推荐半圆styles
+ */
+
+.hot-book {
+	overflow: hidden;
+	margin-bottom: 0.294rem;
+    
+    ul {
+        height: 2.8rem;
+        overflow: hidden;
+    }
+    .item {
+        float: left;
+        border-radius: $border-radius-base;
+        background-color: #0b97c4;
+        margin: 0 0.441rem 0.294rem 0;
+        a {
+            padding: .1175rem .3529rem;
+            display: block;
+            color: #ffffff;
+            border-radius: .382rem;  
+            line-height: 0.45rem;
+            @include highlight(rgba(0,0,0,0) !important);
+            &:active, 
+            &:focus {
+                background: rgba(0,0,0,0.2); 
+            }
+        }
+    }
+}
+
+.color1 {
+	background-color: $bg-paleblue  !important;
+}
+
+.color2 {
+	background-color: $bg-orangepink !important;
+}
+
+.color3 {
+	background-color: $bg-lavender   !important;
+}
+
+.color4 {
+	background-color: $bg-paleyellow !important;
+}
+
+.color5 {
+	background-color: $bg-inkpurple  !important;
+}
+
+.color6 {
+	background-color: $bg-aqua       !important;
+}
+
+.color7 {
+	background-color: $bg-paleblue   !important;
+}
+
+.color8 {
+	background-color: $bg-paleink    !important;
+}
+
+.color9 {
+	background-color: $bg-paleorange !important;
+}
+
+/* spec */
+
+.search-page {
+    .hot-book {
+        width: 100%;
+        padding-bottom: 0.4411rem;
+        box-sizing: border-box;
+        ul {
+            margin: .25rem 0 0 0;
+            overflow: hidden;
+            height: 3rem;
+        }
+        .item {
+            background-color: transparent!important;
+        }
+        .item:active a {
+            color: #50cacc;
+        }
+        a {
+            display: block;
+            color: #5a5a5a;
+            padding: 0.147rem 0.2941rem;
+            border-radius: 0.4117rem;
+            box-sizing: border-box;
+            @include highlight(rgba(0,0,0,0) !important);
+            &:hover {
+                background: none;
+            }
+        }
+
+        h3 button {
+            border: none;
+            background-color: transparent;
+            border-radius: .3235rem;
+            float: right;
+            padding: 0px .2352rem;
+            line-height: .48rem;
+            margin-top: -.0882rem;
+            font-size: .3rem;
+            color: #b0b0b0;
+            height: .48rem;
+            box-sizing: border-box;
+        }
+
+        h3 button:active{
+            background: #f1f1f1;
+            border: none;
+        }
+    }
+    
+    .xiaobian {
+        display: none;
+    }
+}
+
+.search-page .hot-book h3,
+.search-history h3 
+{
+	color: #989898;
+}
+

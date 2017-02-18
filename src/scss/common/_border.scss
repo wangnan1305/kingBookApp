@@ -1,0 +1,34 @@
+@charset "utf-8";
+/**
+ *  Note:  scale 变形处理1px
+ */
+
+.bd-top {
+    @include bd-top;
+}
+.bd-right {
+    @include bd-right;
+}
+.bd-bottom {
+    @include bd-bottom;
+}
+.bd-left {
+    @include bd-left;
+}
+.bd-wrap {
+    @include bd-wrap;
+}
+
+/* spec change */
+.like-see ol li:last-child:after {
+    display: none;
+}
+.book-list ul li.fig-word.bd-bottom:after {
+    border-top: 1px solid $border-minor;
+}
+.entrances ul li.bd-right:after {
+    border-right: 1px solid $border-base;
+}
+.entrances .second li .bd-wrap:after {
+    border: 1px solid $color-main;
+}

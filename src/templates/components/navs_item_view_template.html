@@ -1,0 +1,13 @@
+<!-- 大分类item视图模版 -->
+<script type="text/template" id="navs_item_view_template">
+	<ul>
+		<% for(var i=0;i<3;i++){ %>
+		<li data-cateid="<%=data[i]['cateId']%>" data-catename="<%=data[i]['cateName']%>">
+			<a class="nav" href="#books/class/<%=data[i]['cateName']%>/<%=data[i]['cateId']%>" data-catename="<%=data[i]['cateName']%>"><div class="bg n<%=i%>" style="background-position: <%=data[i]['wordBackground']%>;"></div><%=data[i]['cateName']%></a>
+		</li>
+		<% } %>
+		<li data-cateid="0" data-catename="more">
+			<a id="more" class="nav" href="#main/class"><div class="bg"></div>更多</a>
+		</li>
+	</ul>
+</script>

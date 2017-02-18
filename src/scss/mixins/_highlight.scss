@@ -1,0 +1,11 @@
+@charset "utf-8";
+/**
+ *  Create Date: 2016-09-05
+ *  Note:  超出显示隐藏
+ *  Use:   @include highlight    -- 参数使用默认值 (页面默认A highlight 为 rgba(0,0,0,.1)) 
+           @include highlight(rgba(0,0,0,0) !important); -- 传递参数
+ */
+
+@mixin highlight($var:rgba(0,0,0,.1)) {
+    -webkit-tap-highlight-color: $var;
+}

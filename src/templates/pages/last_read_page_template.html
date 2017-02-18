@@ -1,0 +1,39 @@
+<!-- 最近阅读页面 -->
+<script type="text/template" id="last_read_page_template">
+	<header class="nav-bar">
+		<div class="left">
+			<a class="nav back" href="javascript:void(0)"></a> <strong><span>最近阅读</span></strong>
+		</div>
+		<div class="right">
+			<a class="search" href="#search"></a> <a class="book-shop" href="#"><span>书城</span></a>
+		</div>
+	</header>
+	<section class="content">
+		<%if(data&&data.length>0){%>
+		<div class="item-view book-list">
+			<ol>
+				<% for(var i=0;i<data.length;i++){ %>
+					<% if(i>0 && (i+1)%3==0){ %>
+						<li class="fig third">
+					<% }else{ %>
+						<li class="fig">
+					<% } %>
+					<figure>
+						<a data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" href="<%=data[i]['url']%>" class="read">
+							<img src="<%=data[i]['imgUrl']%>" width="75" height="115" alt="推荐图1">
+						</a>
+						<figcaption><%=data[i]["title"]%></figcaption>
+					</figure>
+				</li>
+				<% } %>
+			</ol>
+		</div>
+		<%}else if(dataisloaded){%>
+		<div class="item-view empty">
+			<div class="bg"></div>
+			<p class="title">读书是世界上门槛最低的高贵</p>
+			<a class="nav" href="#">找好书,去书城逛逛</a>
+		</div>
+		<%}%>
+	</section>
+</script>

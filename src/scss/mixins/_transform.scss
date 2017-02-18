@@ -1,0 +1,32 @@
+@charset "utf-8";
+/**
+ *  Create Date: 2016-09-05
+ *  Note:  超出显示隐藏
+ *  Use:   @include transitionRotate(center,180deg)
+ *         @include transition(all 0.4s ease-in-out)
+ */
+
+
+@mixin transition($var) {
+    
+    transition: $var;
+    -o-transition: $var;
+    -ms-transition: $var;
+    -moz-transition: $var;
+    -webkit-transition: $var;
+}
+
+@mixin transitionRotate($pos,$deg) {
+    
+    transform-origin: $pos;
+    -o-transform-origin: $pos;
+    -ms-transform-origin: $pos;
+    -moz-transform-origin: $pos;
+    -webkit-transform-origin: $pos;
+
+    transform: rotateX($deg);
+    -o-transform: rotateX($deg);
+    -ms-transform: rotateX($deg);
+    -moz-transform: rotateX($deg);
+    -webkit-transform: rotateX($deg);
+}

@@ -1,0 +1,35 @@
+{
+  "name": "ebookweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "gulp-md5-plus": "^0.2.5",
+    "koa": "^1.2.0",
+    "koa-static-cache": "^3.1.7",
+    "gulp": "^3.9.1",
+    "path": "^0.12.7",
+    "gulp-connect": "^4.2.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-watch": "^4.3.8",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.4",
+    "gulp-concat": "^2.6.0",
+    "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "gulp-clean-css": "^2.0.12",
+    "gulp-rev": "^7.1.2",
+    "gulp-rev-collector": "^1.0.5",
+    "gulp-sass": "^2.3.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@wpsgit.kingsoft.net:lifangming/ebookweb.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

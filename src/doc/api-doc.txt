@@ -1,0 +1,85 @@
+一、获取书籍详情
+方法:get
+接口地址:http://book.rdtuijian.com/book/detail?bookid=29021
+参数:
+{
+	bookid:"书籍id"
+}
+
+返回:
+{
+	code:200,//200表示成功
+	msg:"出错提示信息",
+	data:{
+		authorid:"作者id",
+		书籍全部目前字段
+	}	
+}
+
+二、分页获取书籍目录
+方法:get
+接口地址:http://book.rdtuijian.com/book/chapter-list?page=1&pagesize=10&bookid=440968217&reverse=1
+参数:
+{
+	bookid:"书籍id",
+	page:"页码",
+	pagesize:"数量"
+}
+
+返回:
+{
+	code:200,//200表示成功
+	msg:"出错提示信息",
+	totalsize:"总数",
+	data:[
+		{
+			chapterid:"章节id",
+			chapter_name:"章节名称"
+		},...
+	]
+}
+
+三、分页获取作者写过书籍列表
+方法:get
+接口地址:http://book.rdtuijian.com/book/books-by-author?authorid=10669744
+参数:
+{
+	authorid:"作者id",
+	page:"页码",
+	pagesize:"数量"
+}
+
+返回:
+{
+	code:200,//200表示成功
+	msg:"出错提示信息",
+	totalsize:"总数",
+	data:[
+		{
+			书籍全部目前字段
+		},...
+	]
+}
+
+四、书友还读过书籍列表
+方法:get
+接口地址:http://book.rdtuijian.com/book/similar-books?cateid=33&pagesize=3
+参数:
+{
+	authorid:"作者id",
+	bookid:"书籍id",
+	cateId:"分类id",
+	pagesize:"数量",
+	randid:"自增id"
+}
+
+返回:
+{
+	code:200,//200表示成功
+	msg:"出错提示信息",
+	data:[
+		{
+			书籍全部目前字段
+		},...
+	]
+}

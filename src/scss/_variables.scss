@@ -1,0 +1,96 @@
+@charset "utf-8";
+/**
+ *  Note:  变量声明初始化
+ */
+
+
+// Variables base
+
+$browser-default-font-size:   12    !default;
+$html-default-font-size:      54px  !default;
+$box-mod:                     "box" !default; 
+$font-unit:                   "rem" !default;
+
+$color-base:                  #f5484c     !default;
+$color-main:                  #12bfc2     !default;
+$color-minor:                 #5d9f1d     !default;
+$color-assistant:             #d72024     !default;
+
+$text-base:                   #575757     !default;
+$text-main:                   #b6b6b6     !default;
+$text-minor:                  #969696     !default;
+$text-assistant:              #000000     !default;
+
+$border-base:                 #cacaca     !default;
+$border-main:                 #d9d9d9     !default;
+$border-minor:                #ececec     !default;
+$border-assistant:            #000000     !default;
+
+$bg-base:                     #f2f2f2     !default;
+$bg-main:                     #ffffff     !default;
+$bg-minor:                    #fcbdba     !default;
+$bg-assistant:                #000000     !default;
+
+$bg-gray:                     #828282     !default;
+$bg-orange:                   #ff693b     !default;
+$bg-darkgreen:                #0b97c4     !default;
+$bg-orangepink:               #fb9c9c     !default;
+$bg-lavender:                 #bfa5d8     !default;
+$bg-inkpurple:                #a5b3db     !default;
+$bg-aqua:                     #8fdad4     !default;
+$bg-paleblue:                 #99d0e4     !default;
+$bg-paleyellow:               #efb582     !default;
+$bg-paleblue:                 #a9cbf1     !default;
+$bg-paleink:                  #abcf9d     !default;
+$bg-paleorange:               #ff997d     !default;
+$bg-lightPink:                #ff9d9d     !default;
+$bg-wathet:                   #8fb3df     !default;
+$bg-reseda:                   #a0bc73     !default;
+
+$path-img:                    "../images"        !default;
+$layout-width-base:           100%               !default;
+$layout-width:                $layout-width-base !default;
+
+$box-shadow-base:             0 0 3px #ccc       !default;
+
+$font-size-main:              0.333rem !default;
+$font-size-base:              0.388rem !default;
+$font-size-minor:             0.416rem !default;
+
+$spacing-main:                0.3rem !default;
+$spacing-base:                1.3rem !default;
+$spacing-minor:               2.6rem !default;
+
+$border-radius-base:          99rem  !default;
+$border-radius-minor:         1rem   !default;
+
+$line-height-base:            1.5rem !default;
+$line-height-minor:           1.3rem !default;
+
+$border-width-base:           1px    !default;
+$border-style-base:           solid  !default;
+
+$state-success-text:          #3c763d !default;
+$state-success-bg:            #dff0d8 !default;
+$state-success-border:        darken($state-success-bg, 5%) !default;
+
+$state-info-text:             #31708f !default;
+$state-info-bg:               #d9edf7 !default;
+$state-info-border:           darken($state-info-bg, 5%)    !default;
+
+$state-warning-text:          #8a6d3b !default;
+$state-warning-bg:            #fcf8e3 !default;
+$state-warning-border:        darken($state-warning-bg, 5%) !default;
+
+$state-danger-text:           #a94442 !default;
+$state-danger-bg:             #f2dede !default;
+$state-danger-border:         darken($state-danger-bg, 5%)  !default;
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+<!-- 搜索页面 -->
+<script type="text/template" id="search_page_template">
+	<header class="nav-bar">
+		<a class="nav back" href="javascript:void(0)">取消</a>
+		<form class="search-bar" method="get" onsubmit="return false;" id="searchBox">
+			<label for="keyWord"></label>
+			<input id="keyWord" placeholder="<%=data['recommend']%>"> <button type="button"></button>
+		</form>
+	</header>
+	<section class="result book-list" style="display: none;">
+		<p class="not-found">没有找到您想要的书哦~</p>
+		<section class="list">
+			<h3>总共找到<em class="book-count">0</em>本书</h3>
+			<ul></ul>
+			<div class="page-control">
+				<button class="prev" disabled="">上一页</button> <button class="next">下一页</button>
+			</div>
+		</section>
+	</section>
+	<section class="hot-book">
+		<h3>大家都在搜 <button class="bd-wrap">换一批</button></h3>
+		<ul>
+			<% for(var i=0;i<data["hotBook"].length;i++){ %>
+			<li class="item color<%=i%10%>">
+				<a href="javascript:void(0)" data-keyword="<%=data['hotBook'][i]['keyword']%>" class="read bd-wrap"><%=data["hotBook"][i]['keyword']%></a>
+			</li>
+			<% } %>
+		</ul>
+	</section>
+	<section class="search-history">
+		<h3>搜索历史 <button type="reset" class="bd-wrap">清空</button></h3>
+		<ul>
+			<% for(var i=0;i<data.historyList.length;i++){ %>
+			<li><a href="javascript:void(0)" data-keyword="<%=data.historyList[i]['keyword']%>" class="book search"><%=data.historyList[i]["keyword"]%></a></li>
+			<%}%>
+		</ul>
+	</section>
+</script>

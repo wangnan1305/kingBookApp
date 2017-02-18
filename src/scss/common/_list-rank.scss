@@ -1,0 +1,93 @@
+@charset "utf-8";
+/**
+ *  Note:  排行榜单通用styles
+ */
+
+
+.main-page-rank {
+	padding: $spacing-main !important;
+	background-color: #FFF !important;
+    
+    ul,ol {
+        list-style: none;
+        padding: 0;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    ul > li {
+        clear: both;
+        display: block;
+        margin-bottom: 0.4rem !important;
+        text-overflow: ellipsis;
+    }
+
+    h4 {
+        width: 1.764rem;
+        height: 1.764rem;
+        float: left;
+        margin: 0;
+    }
+
+    .count {
+        float: right;
+        font-size: .277rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 36%;
+    }
+
+    .nav {
+        float: left;
+        width: 85px;
+        height: 65px;
+        background: transparent url($path-img+'/sprite-rank.jpg') 0 0 no-repeat;
+        background-size: 100%;
+        margin: 5px 0;
+    }
+
+    ol {
+        padding: 0 0 0 0.352rem;
+        .order-id {
+            color: #98c1c2;
+            background-color: #eaefef;
+            border-radius: .4705rem;
+            display: inline-block;
+            text-align: center;
+            font-style: oblique;
+            margin-right: .1176rem;
+            text-shadow: .027rem 0 0 #fff,-.027rem 0 0 #fff,0 .027rem 0 #fff,0 -.027rem 0 #fff;
+            line-height: 16px;
+            height: 16px;
+            width: 14px;
+            vertical-align: middle;
+            padding: 0 2px 0 0;
+        }
+    }
+
+    .active {
+        color: #464645;
+    }
+
+    .gray {
+        color: #b3b3b3;
+    }
+
+    .book {
+        max-width: 50%;
+        line-height: 0.4705rem;
+        vertical-align: middle;
+        font-size: 0.333rem;
+        @include overflow;
+        white-space: nowrap;
+        display: inline-block;
+    }
+    .read {
+        overflow: hidden;
+        display: block;
+        height: 24px;
+        line-height: 24px;
+    }
+}
+

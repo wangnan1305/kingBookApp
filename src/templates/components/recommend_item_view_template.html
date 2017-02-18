@@ -1,0 +1,35 @@
+<!-- 重磅推荐item视图模版 -->
+<script type="text/template" id="recommend_item_view_template">
+	<h3 class="section-h3">重磅推荐
+	</h3>
+	<ol>
+		<% for(var i=0;i<6;i++){ %>
+		<% if(i<3){ %>
+			<% if(i<2){ %>
+				<li class="fig">
+			<% }else{ %>
+				<li class="fig third">
+			<% } %>
+			<figure>
+				<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" data-href="<%=data[i]['url']%>" class="read">
+					<img src="<%=data[i]['imgUrl']%>" width="75" height="115" alt="推荐图1">
+				</a>
+				<figcaption><%=data[i]["title"]%></figcaption>
+			</figure>
+		</li>
+		<% }else{ %>
+			<% if(i<5){ %>
+				<li class="word bd-bottom">
+			<% }else{ %>
+				<li class="word third">
+			<% } %>
+		
+			<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" data-href="<%=data[i]['url']%>" class="read"><span class="book"><%=data[i]['title']%></span><span class="readers"><em><%=data[i]['readCountFormated']%></em>人阅读</span>
+			</a>
+		</li>
+		<% }} %>
+		<li class="more bd-top">
+			<a class="all nav" href="#books/recommend/重磅推荐/0/0/7">更多</a>
+		</li>
+	</ol>
+</script>

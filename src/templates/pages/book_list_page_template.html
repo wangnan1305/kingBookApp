@@ -1,0 +1,13 @@
+<!-- 一般书籍列表页面视图 -->
+<script type="text/template" id="book_list_page_template">
+	<header class="nav-bar">
+		<div class="left">
+			<a class="back" href="javascript:window.history.back();"></a> <strong><%=title%></strong>
+		</div>
+		<div class="right">
+			<a class="search" href="#search"></a> <a class="last-read" href="#latest-readed"><span>最近阅读</span></a>
+		</div>
+	</header>
+	<section id="<%=pageid%>" class="content book-list">
+	</section>
+</script>

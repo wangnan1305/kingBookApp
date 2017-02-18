@@ -1,0 +1,19 @@
+@charset "utf-8";
+/**
+ *  Create Date: 2016-09-05
+ *  Note:  超出显示隐藏
+ *  Use:   @include flexcenter 
+ */
+
+
+@mixin flexcenter() {
+    
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: flex-end;
+}

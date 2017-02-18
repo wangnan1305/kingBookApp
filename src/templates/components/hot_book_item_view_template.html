@@ -1,0 +1,11 @@
+<!-- 热搜榜item视图模版 -->
+<script type="text/template" id="hot_book_item_view_template">
+	<h3 class="section-h3">热搜榜<a class="all bd-wrap" href="javascript:void(0)">换一批</a></h3>
+	<ul>
+		<% for(var i=0;i<data.length;i++){ %>
+		<li class="item color<%=i%10%>">
+			<a href="#search/<%=data[i]['keyword']%>" class="read"><%=data[i]['keyword']%></a>
+		</li>
+		<% } %>
+	</ul>
+</script>

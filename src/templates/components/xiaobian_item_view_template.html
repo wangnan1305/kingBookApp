@@ -1,0 +1,23 @@
+<!-- 小编懂你item视图模版 -->
+<script type="text/template" id="xiaobian_item_view_template">
+	<h3 class="section-h3">小编懂你</h3>
+	<ul>
+		<% for(var i=0;i<6;i++){ %>
+			<% if(i>0 && (i+1)%3==0){ %>
+				<li class="fig third">
+			<% }else{ %>
+				<li class="fig">
+			<% } %>
+			<figure>
+				<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" data-href="<%=data[i]['url']%>" class="read">
+					<img src="<%=data[i]['imgUrl']%>" width="75" height="115" alt="推荐图1">
+				</a>
+				<figcaption><%=data[i]["title"]%></figcaption>
+			</figure>
+		</li>
+		<% } %>
+	</ul>
+	<li class="more bd-top">
+		<a class="all nav" href="#books/xiaobian/小编懂你/0/0/9">更多<span class="bg"></span></a>
+	</li>
+</script>

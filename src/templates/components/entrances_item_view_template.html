@@ -1,0 +1,26 @@
+<!-- 分类导航item视图模版 -->
+<script type="text/template" id="entrances_item_view_template">
+	<h3 class="section-h3">分类导航</h3>
+	<ul class="first">
+		<% for(var i=0;i<data.classes.length;i++){ %>
+			<% if(i>0 && (i+1)%5==0){ %>
+				<li class="fifth">
+			<% }else{ %>
+				<li class="bd-right">
+			<% } %>
+			<a data-cateid="<%=data.classes[i]['cateId']%>" data-catename="<%=data.classes[i]['cateName']%>" class="nav" href="#books/class/<%=data.classes[i]['cateName']%>/<%=data.classes[i]['cateId']%>"><%=data.classes[i]['cateName']%></a>
+			</li>
+		<%}%>
+	</ul>
+	<ul class="second">
+		<% for(var i=0;i<data.ranks.length;i++){ %>
+		<% if(i>0 && (i+1)%3==0){ %>
+			<li class="third">
+		<% }else{ %>
+			<li>
+		<% } %>
+			<a data-rankid="<%=data.ranks[i]['rankId']%>" data-rankname="<%=data.ranks[i]['rankName']%>" class="nav bd-wrap" href="#ranks/<%=data.ranks[i]['rankId']%>/<%=data.ranks[i]['rankName']%>"><%=data.ranks[i]['rankName']%></a>
+		</li>
+		<% } %>
+	</ul>
+</script>

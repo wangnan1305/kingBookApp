@@ -1,0 +1,8 @@
+<!-- 搜索页面人搜词列表模版 -->
+<script type="text/template" id="search_page_hot_book_item_template">
+	<% for(var i=0;i<infos.length;i++){ %>
+	<li class="item color<%=i%10%>">
+		<a href="javascript:void(0)" data-keyword="<%=infos[i]['keyword']%>" class="read bd-wrap"><%=infos[i]['keyword']%></a>
+	</li>
+	<% } %>
+</script>

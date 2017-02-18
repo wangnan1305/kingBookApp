@@ -1,0 +1,656 @@
+@charset "utf-8";
+/**
+ *  Note:  底层布局
+ */
+
+
+.nav-cont {
+    background: url($path-img+'/nav_bar_bg.jpg') no-repeat 0 0;
+    background-size: cover;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    height: 2.35rem;
+    width: 100%;
+    
+    .nav-bar,
+    .nav-tabbar {
+        position: absolute !important;
+    }
+    .nav-bar{
+        background: none;
+    }
+    .nav-tabbar {
+         ul {
+            background: none;
+            border-bottom:0px;
+        }
+        a {
+            color: #fff;
+            opacity: 0.5;
+        }
+        li {
+            width: 25%;
+            &.active {
+                border-bottom-color: $bg-minor !important;
+                border-bottom: .08333rem solid transparent;
+                a {
+                    opacity: 1;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+}
+
+.nav-bar {
+	width: 100%;
+	height: 1.3rem;
+	background:$color-base;
+	background-size: 100% 100%;
+	overflow: hidden;
+	color: #ffffff;
+//	padding: 0 0.40rem;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 999;
+	box-sizing: border-box;
+    
+    .left {
+        float: left;
+        font-size: 0.50rem;
+        line-height: 1.3rem;
+        max-width: 5.5rem;
+        @include overflow;
+        
+        %com {
+            height: 0.5555rem;
+            line-height: 1.3rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .back {
+            
+            height: 1.3rem;
+            line-height: 1.3rem;
+            display: inline-block;
+            width: 0.955rem;
+            padding-left: 0.4rem;
+            box-sizing: border-box;
+            
+            &:before {
+                content: "";
+                background: transparent url($path-img+'/back_icon.png') 0 0 no-repeat;
+                background-size: 100% 100%;
+                width: 0.5555rem;
+                @extend %com;
+            }
+        }
+        .bookshop {
+            background: transparent url($path-img+'/bookshop_word.png') 0 0 no-repeat;
+            background-size: 100% 100%;
+            width: 0.9722rem;
+            margin-right: 0.3rem;
+            @extend %com;
+        }
+    }
+    .right {
+        float: right;
+        font-size: 0.361rem;
+        line-height: 1.3rem;
+        
+        .search {
+            height: 1.3rem;
+            line-height: 1.3rem;
+            display: inline-block;
+            width: 0.755rem;
+            padding-left: 0.2rem;
+            float: left;
+            
+            &:before {
+                content: "";
+                width: .6rem;
+                height: 0.6rem;
+                line-height: 1.3rem;
+                background: transparent url($path-img+'/search_icon.png') 0 0 no-repeat;
+                background-size: 100% 100%;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+        .last-read,
+        .book-shop {
+            
+            height: 1.3rem;
+            line-height: 1.3rem;
+            display: inline-block;
+            padding-right: 0.4rem;
+            
+            span {
+                line-height: .6111rem;
+                height: .6111rem;
+                border-radius: 3rem; 
+                border: 1px solid #fff;
+                margin-left: .33rem; 
+                box-sizing: border-box; 
+                display: inline-block;
+                vertical-align: middle;
+                padding: 0 .277rem; 
+            }
+            
+        }
+    }
+
+    & > div {
+        height: 1.3rem;
+    }
+
+    strong {
+        font-weight: normal;
+        vertical-align: middle;
+    }
+
+    a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+}
+
+/* tab bar styles */
+
+.nav-tabbar {
+	position: fixed;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 900;
+    
+    a {
+        font-size: $font-size-minor;
+        text-decoration: none;
+    }
+
+    &.top {
+        position: fixed;
+        left: 0;
+        top: 1.3rem;
+        width: 100%;
+    }
+
+    ul {
+        overflow: hidden;
+        list-style: none;
+        padding: 0 0.25rem;
+        text-align: center;
+        border-bottom: 1px solid #e3e3e3;
+        margin: 0;
+        background: #fff;
+    }
+
+    li {
+        float: left;
+        width: 33.333%;
+        height: 1.05rem;
+        line-height: 1.05rem;
+        box-sizing: border-box;
+        border-bottom: 0.05rem solid transparent;
+        &.active {
+            border-bottom-color: $color-main !important;
+            a {
+                color: $color-main !important;
+                text-decoration: none;
+                opacity: 1;
+            }
+        }
+    }
+
+    a {
+        width: 100%;
+        height: 100%;
+        display: block;
+        color: #9b9b9b;
+        outline: none;
+        text-decoration: none;
+    }
+
+    li.active a {
+        color: $color-main;
+        text-decoration: none;
+    }
+
+}
+
+/* more styles */
+li.more {    
+    width: 100%;
+    list-style: none;
+    text-align: center;
+    line-height: 0.485rem;
+    width: 10rem;
+    margin-left: -0.3rem;
+    clear: both;
+    a {
+        text-align: center;
+        font-size: 0.4rem;
+        color: #666666;
+        text-decoration: none;
+        display: block;
+        padding: .35rem 0;
+    }
+}
+
+/* main container styles */
+
+.main-container {
+	width: 100%;
+	background-color: #ffffff;
+    .content > * {
+        background-color: #ffffff;
+    }
+    .content {
+        padding: 0 0 0 0;
+        background-color: #f2f2f2;
+        margin-top: $spacing-base;
+        .time {
+            padding: $spacing-main 0.13rem $spacing-main;
+            background: #fff;
+            font-size: $font-size-main;
+            color: #969696;
+        }
+    }
+    &.for-sub-tab .content {
+        margin-top: $spacing-minor;
+    }
+    &.rank-list-page .book-list {
+        margin-top: $spacing-base !important;
+    }
+}
+
+/* Recent reading styles */
+
+.last-read-item {
+	color: #ffffff;
+	font-size: 0.3rem;
+	margin-bottom: -0.3rem !important;
+    
+    .wrapper {
+        padding: .1rem .44rem .1rem .9rem;
+        border-radius: 1rem;
+        overflow: hidden;
+        background-color: #828282;
+        height: 0.5rem;
+        line-height: 0.5rem;
+    }
+    .bg {
+        background: url($path-img+'/sprite-others.png') 0.054rem -1.89rem no-repeat;
+        background-size: .583rem 7.87rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        margin-left: -.55rem;
+        float: left;
+    }
+    .name {
+        position: relative;
+        float: left;
+        max-width: 70%;
+        height: .5rem;
+        font-size: $font-size-main;
+        @include overflow;
+        
+        .book {
+            padding-right: 0.3rem;
+            max-width: 56%;
+        }
+
+        .indicator {
+            border-radius: 50%;
+            background-color: #f00;
+            position: absolute;
+            top: 0.06rem;
+            right: 0.06rem;
+            width: 0.13rem;
+            height: 0.13rem;
+        }
+    }
+
+    .update-time {
+        float: right;
+        line-height: 0.49rem;
+    }
+}
+
+/* em font styles */
+.readers em,
+.words em {
+	max-width: 1.352rem;
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: bottom;
+    font-weight: normal;
+}
+
+.words {
+	line-height: 0.411rem;
+}
+
+.words em {
+	line-height: 0.411rem;
+}
+
+/* footer */
+
+.footer-right {
+	text-align: center;
+	font-size: 0.3rem;
+	color: #cdcdcd;
+	background-color: $bg-base !important;
+    height: 1.37rem;
+    line-height: 1.37rem;
+    margin-top: -$spacing-main;
+}
+
+/* 书籍评分 */
+
+.star {
+    display: inline-block;
+    width: 0.34rem;
+    height: 0.34rem;
+    background: url($path-img+'/sprite-others.png') -0.054rem -1.55rem no-repeat;
+    background-size: .583rem 7.87rem;
+    vertical-align: middle;
+    float: left;
+    margin-right: 0.05rem;
+    margin-top: 0.08rem;
+    
+    &.half {
+        background-position: -.054rem -0.76rem;
+    }
+    &.gray {
+        background-position: -.054rem -1.145rem;
+    }
+}
+.rate .score {
+    margin-left: .1rem;
+    float: left;
+}
+
+
+/* 加载更多 */
+
+.more-data {
+    padding: 0 .4411rem;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    font-size: .4rem;
+    color: #cdcdcd;
+    box-sizing: border-box;
+    img {
+        margin-right: 0.5rem;
+        width: 0.4rem;
+        height: 0.4rem;
+    }
+}
+
+/* 搜索页面 */
+
+.search-page {
+	background-color: #f2f2f2;
+	font-size: 0.3rem;
+	padding-top: 1.3rem;
+    h3 {
+        border: none;
+        padding: 0;
+    }
+    header {
+        background-color: $color-base;
+        padding: 0.2941rem 0.4411rem;
+        label {
+            width: .455rem;
+            height: .455rem;
+            line-height: .455rem;
+            position: absolute;
+            left: .33rem;
+            top: .138rem;
+            z-index: 1;
+            background: url($path-img+'/search_icon.png') 0 0 no-repeat;
+            background-size: 100% 100%;
+            opacity: .7;
+        }
+         input {
+            height: 0.7352rem;
+            border: none;
+            border-radius: .165rem;
+            width: 100%;
+            padding: 0 1.1764rem 0 1.1764rem;
+            box-sizing: border-box;
+            background-color: $color-assistant;
+            color: #ffffff;
+        }
+         a {
+            color: #ffffff;
+            float: right;
+            height: 0.7352rem;
+            padding: 0;
+            line-height: 0.7352rem;
+            font-size: 0.4rem;
+            text-decoration: none;
+        }
+
+    }
+    .search-bar {
+        width: 85%;
+        position: relative;
+         button {
+            border: medium none;
+            position: absolute;
+            top: .12rem;
+            right: 0;
+            z-index: 2;
+            float: none;
+            color: #f3bdbe;
+            padding: 0 .2941rem;
+            font-size: .4705rem;
+            width: .455rem;
+            height: .455rem;
+            background: transparent url($path-img+'/sprite-others.png') 0 -96px no-repeat;
+            background-size: 24px;
+            margin-left: -27px;
+            opacity: .7;
+        }
+    }
+    
+    & > * {
+        padding: 0 0.4411rem;
+        background-color: #ffffff;
+    } 
+    & > .book-list {
+        padding: 0 !important;
+    } 
+    & > .book-list .list h3 {
+        padding: 0.4411rem .4411rem 0 .4411rem;
+    }
+    .hot-book,
+    .xiaobian {
+        padding-top: 0.4411rem;
+    }
+     ul {
+        margin-top: 0;
+    }
+}
+
+.search-history {
+    padding-top: 0.4411rem;
+	background-color: #ffffff;
+	margin-bottom: 0.2rem;
+    
+    ul {
+        padding: 0;
+        margin-top: 0.3rem;
+        overflow: hidden;
+    }
+
+    h3 button {
+        border: none;
+        background-color: transparent;
+        border-radius: .3235rem;
+        float: right;
+        padding: 0px .2352rem;
+        line-height: .48rem;
+        margin-top: -.0882rem;
+        font-size: .3rem;
+        color: #b0b0b0;
+        height: .48rem;
+        box-sizing: border-box;
+    }
+
+    h3 button:active{
+        background: #f1f1f1;
+        border: none;
+    }
+
+    li {
+        float: left;
+        margin: 0 0.4411rem 0.3235rem 0;
+        
+        button {
+            border: none;
+            background-color: transparent;
+            color: rgb(153, 153, 153);
+            float: right;
+            height: 0.5882rem;
+        }
+
+        .bg {
+            background: transparent url($path-img+"/sprite-others.png") 0 -234px no-repeat;
+            background-size: 27px;
+            width: 20px;
+            height: 20px;
+            float: left;
+            margin-left: -0.7942rem;
+        }
+
+        a {
+            background-color: #efefef;
+            border-radius: 0.4705rem;
+            padding: .04rem .4rem;
+            display: block;
+            line-height: 0.5882rem;
+            color: #575757;
+            font-size: 0.35rem;
+            text-decoration: none;
+        }
+    }
+}
+
+
+/* 搜索结果 */
+.result {
+    
+    .not-found {
+        text-align: center;
+        padding: 1.3235rem 0;
+        margin: 0 0 0.2941rem;
+        color: #cfcfcf;
+        font-size: 0.4rem;
+        display: none;
+    }
+    .list {
+        display: none;
+        margin-bottom: 10px;
+    }
+
+    .list h3 {
+        padding: 0.4411rem 0 0;
+        color: #ff8737;
+        margin-bottom: 0.3rem;
+    }
+
+    &.book-list .list ul {
+        padding: 0!important;
+        margin: 0;
+    }
+    /* 上下翻页 */
+    .page-control {
+        text-align: center;
+        padding-top: 0.3529rem;
+        padding-bottom: 0.3529rem;
+        display: none;
+        button {
+            border: 1px solid #b1b1b1;
+            padding: 0.147rem 0.291rem;
+            border-radius: 0.4rem;
+            display: inline-block;
+            margin: 0 0.4411rem;
+            background-color: transparent;
+            color: #b1b1b1;
+            &:disabled {
+                border-color: #e9e9e9;
+                color: #e9e9e9;
+            }
+        }
+    }
+}
+
+/* 最近阅读页面 */
+
+.last-read-page {
+    .content {
+        margin-top: $spacing-base !important;
+    }
+    .empty {
+        text-align: center;
+        padding-top: 40%;
+        
+        .bg {
+            width: 100px;
+            height: 85px;
+            margin: 0 auto;
+            background: transparent url($path-img+"/sprite-rank.jpg") 0 -453px no-repeat;
+            background-size: 100px;
+        }
+        .title {
+            color: #b3b3b3;
+            font-size: 0.4rem;
+            margin-top: 0.4411rem;
+        }
+        .nav {
+            color: #FFF;
+            background-color: $color-main;
+            display: block;
+            font-size: 0.4rem;
+            width: 8rem;
+            height: 1.3rem;
+            line-height: 1.3rem;
+            margin: 1.17rem auto 0 auto;
+            border-radius: 0.0882rem;
+        }
+    }
+}
+
+/* free styles */
+.main-page-free  {
+    margin-top: 2.72rem !important;
+    
+    & > ul {
+        background: $bg-base !important;
+    }
+    .book-list {
+        margin-top: 0 !important;
+        ul {
+            padding-bottom: 0 !important;
+            padding-left:   0 !important;
+            padding-right:  0 !important;
+        }
+    }
+    .score {
+        float: none !important;
+    }
+    .rank-week .section-h3 {
+        margin: .088rem 0 .0rem .3rem;
+    }
+}
+
+

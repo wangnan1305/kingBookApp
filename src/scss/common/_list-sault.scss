@@ -1,0 +1,149 @@
+@charset "utf-8";
+/**
+ *  Note:  书籍瀑布流通用styles 
+ */
+
+
+
+.book-list-page {
+	margin-top: 0rem;
+	background-color: #ffffff;
+}
+
+.book-list { 
+   
+    & > ul {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    ul {
+        padding: 0.3rem;
+        li.fig-word:first-child {
+            padding-top: 0px;
+        }
+    }
+    .fig-word {
+        overflow: hidden;
+        clear: both;
+        padding: .435rem .3rem .407rem;
+        box-sizing: border-box;
+        
+        a {
+            display: block;
+            overflow: hidden;
+
+            .wanben{
+                position: absolute;
+                background: url("../../images/wanben.png") no-repeat;
+                background-size: 1rem, 1rem;
+                height: 1rem;
+                width: 1rem;
+            }
+        }
+
+        img {
+            float: left;
+            margin-right: 0.416rem;
+            width: 2.5rem;
+            height: 3.33rem;
+        }
+
+        .fig-word-right {
+            width: 100%;
+            padding-left: 2.916rem;
+            box-sizing: border-box;
+            display: block !important;
+        }
+        p {
+            margin: .28rem 0 0 0;
+            color: $text-main;
+            font-size: 0.35rem;
+            &.rate {
+                width: 100%;
+                float: left;
+                height: .475rem;
+                line-height: .475rem;
+                .fromWeb {
+                    float: right;
+                }
+            }
+        }
+
+        .description {
+            height: 1.0rem;
+            line-height: 0.50rem;
+            float: left;
+            @include overflow(2);
+        }
+
+        .author {
+            max-width: 58%;
+            vertical-align: middle;
+            color: #a1a1a1;
+            @include overflow;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .portrait {
+            width: 15px;
+            display: inline-block;
+            height: 15px;
+            background: #d9d9d9 url($path-img+'/sprite-others.png') 0 -1px no-repeat;
+            background-size: 25px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 0.147rem;
+        }
+
+        .style {
+            float: right;
+            background: #ff693b;
+            color: #fff;
+            padding: 0.05rem .088rem;
+            border-radius: .088rem;
+            margin-right: .147rem;
+            margin-top: -0.1rem;
+            font-size: 0.2777rem;
+        }
+        .type {
+            color: #4e96d3;
+            border: 1px solid #4e96d3;
+            padding-left: .1rem;
+            padding-right: .1rem;
+            float: left;
+            box-sizing: border-box;
+            border-radius: .05rem;
+            line-height: normal;
+        }
+        .words {
+            margin-left: .15rem;
+            border: 1px solid #8fb665;
+            color: #8fb665;
+        }
+        h4 {
+            padding-top: 0.0882rem;
+            font-size: 0.4rem;
+            max-width: 70%;
+            font-weight: normal;
+            color: #575757;
+            @include overflow;
+        }
+    }
+
+}
+
+.rank-list-page,
+.rank-list-page .content {
+	background-color: #ffffff!important;
+}
+
+.rank-list-page .book-list {
+
+    margin-top: 1.3rem !important;
+    .rank ul {
+        padding: 0;
+    }
+}
+.search-page .book-list .fig-word .author {
+    max-width: 58%;
+}

@@ -1,0 +1,24 @@
+<!-- 排行榜item视图模版 -->
+<script type="text/template" id="rank_item_view_template">
+	<% for(var i=0;i<data.length;i++){ %>
+	<li>
+		<a data-rankid="<%=data[i]['rankId']%>" data-rankname="<%=data[i]['rankName']%>" class="nav" href="#ranks/<%=data[i]['rankId']%>/<%=data[i]['rankName']%>" style="background-position: <%=data[i]['rankCoverBackround']%>"></a>
+		<ol>
+			<% for(var j=0;j<data[i]['books'].length;j++){ %>
+			<li>
+				<a href="#book/detail/<%=data[i]['books'][j]['bookid']%>/<%=data[i]['books'][j]['title']%>" data-rankid="<%=data[i]['rankId']%>" data-rankname="<%=data[i]['rankName']%>" data-title="<%=data[i]['books'][j]['title']%>" data-bookid="<%=data[i]['books'][j]['bookid']%>" data-completed="<%=data[i]['books'][j]['completed']%>" data-score="<%=data[i]['books'][j]['score']%>" data-href="<%=data[i]['books'][j]['url']%>" class="read">
+					<span class="order-id"><%=j+1%></span>
+					<% if(j==0){ %>
+						<span class="book active">
+					<% }else{ %>
+						<span class="book gray">
+					<% } %>
+					<%=data[i]['books'][j]['title']%></span>
+					<span class="count gray"><em><%=data[i]['books'][j]['readCountFormated']%></em>人阅读</span>
+				</a>
+			</li>
+			<%}%>
+		</ol>
+	</li>
+	<%}%>
+</script>

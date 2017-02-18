@@ -1,0 +1,29 @@
+@charset "utf-8";
+/**
+ *  Note:  文件汇入
+ */
+
+@import 'variables';            //变量声明
+
+@import 'mixins/border';        //边框变形
+@import 'mixins/pxtorem';       //字体转换
+@import 'mixins/overflow';      //超出隐藏
+@import 'mixins/transform';     //旋转动画
+@import 'mixins/highlight';     //点击高亮
+@import 'mixins/flexcenter';    //垂直居中
+
+
+@import 'common/base';          //基层样式
+@import 'common/loading';       //加载处理
+@import 'common/border';        //边框引用
+@import 'common/list-item';     //视图列表
+@import 'common/list-circle';   //模块导航
+@import 'common/list-nav';      //分类导航
+@import 'common/list-search';   //热搜推荐
+@import 'common/list-rank';     //榜单排行
+@import 'common/list-sault';    //瀑布列表
+
+@import 'layout';               //布局概要
+
+
+

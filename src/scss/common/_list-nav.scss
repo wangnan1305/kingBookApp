@@ -1,0 +1,151 @@
+@charset "utf-8";
+/**
+ *  Note:  分类导航通用styles
+ */
+
+
+.entrances {
+	ul {
+        text-align: center;
+        list-style: none;
+        padding: 0;
+        overflow: hidden;
+        margin: 0.588rem 0 0.441rem;
+        li {
+            float: left;
+            width: 20%;
+            box-sizing: border-box;
+            text-align: center;
+            margin-bottom: 0.588rem;
+            &.fifth {
+                border: none;
+            }
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: $text-minor;
+        display: block;
+        @include highlight(rgba(0,0,0,0) !important);
+        &:active {
+            color: #12bfc2;
+        }
+    }
+    .second {
+        border: none;
+        margin: 0;
+        
+        li {
+            border-radius: 0.441rem;
+            width: 30%;
+            margin-right: 4%;
+            &.third {
+                margin-right: 0;
+            }
+        }
+
+        a {
+            color: #12bfc2;
+            padding: 0.147rem 0;
+            border-radius: .441rem;
+            @include highlight(rgba(0,0,0,0) !important);
+            &:active {
+                background: #12bfc2 !important;
+                color: #fff !important;
+            }
+        }
+    }
+}
+
+.main-page-classes {
+    
+	margin-top: 0.3rem;
+    
+    ol {
+        padding: 0;
+        margin: 0 0 0 0;
+        list-style: none;
+        margin-top: -0.23rem;
+        li {
+            width: 100%;
+        }
+    }
+
+    ul {
+        padding: 0 0 .5882rem !important;
+        margin: 0 !important;
+        list-style: none;
+        overflow: hidden;
+        background-color: #ffffff;
+        li {
+            width: 33.33% !important;
+            margin: 0.5882rem 0 0 !important;
+            &.third {
+                border: none;
+            }
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: #9b9b9b;
+        display: block;
+    }
+
+    h4 {
+        padding: 0 0 0 .9411rem;
+        text-align: left;
+        font-weight: 400;
+        position: relative;
+        background-color: #f2f2f2;
+        height: 0.925rem;
+        line-height: 0.925rem;
+    }
+
+    .bg {
+        display: inline-block;
+        position: absolute;
+        top: 0.182rem;
+        left: .2352rem;
+        z-index: 3;
+        background: url($path-img+'/sprite-others.png') no-repeat;
+        background-size: .583rem 7.87rem;
+        width: .5rem;
+        height: .5rem;
+    }
+
+    .cate0 {
+        h4 {
+            color: $color-base;
+        }
+        .bg {
+            background-position: .054rem -2.78rem;
+        }
+    }
+    .cate1 {
+        h4 {
+            color: #67a9fa;
+        }
+        .bg {
+            background-position: .054rem -4.14rem;
+        }
+    }
+    .cate2 {
+        h4 {
+            color: $bg-lightPink;
+        }
+        .bg {
+            background-position: .054rem -3.24rem;
+        }
+    }
+    .cate3 {
+        h4 {
+            color: #599610;
+        }
+        .bg {
+            background-position: .054rem -3.7rem;
+        }
+    }
+}
+

@@ -1,0 +1,21 @@
+@charset "utf-8";
+/**
+ *  Create Date: 2016-09-05
+ *  Note:  rem 换算
+ *  Use:   rem(X) -- 传递参数,X为PSD量测像素
+ */
+
+$baseFontSize: 108 !default;
+
+// pixels to rems 
+@function rem($px) {
+  @return $px / $baseFontSize * 1rem;
+}
+
+// eg 
+// 如需改变baseFontSize值，则在引用前再次声明即可
+// $baseFontSize: 54;
+// body {
+//    font-size:rem(108);
+// }
+

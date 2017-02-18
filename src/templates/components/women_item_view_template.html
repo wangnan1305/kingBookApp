@@ -1,0 +1,20 @@
+<!-- 女生爱看item视图模版 -->
+<script type="text/template" id="women_item_view_template">
+	<h3 class="section-h3">女生爱看
+	</h3>
+	<ol>
+		<% for(var i=0;i<4;i++){ %>
+		<% if(i==0){ %>
+		<li class="fig-word bd-bottom">
+			<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" class="read" data-href="<%=data[i]['url']%>"><img src="<%=data[i]['imgUrl']%>" alt="小说封面" width="75" height="100"><h4><%=data[i]['title']%></h4><p class="line"><span class="portrait"></span><span class="author"><%=data[i]['author']%></span><span class="type bd-left"><%=data[i]['completed']%></span> <span class="readers"><em><%=data[i]['readCountFormated']%></em>人阅读</span></p><p class="description"><%=data[i]['description']%></p></a>
+		</li>
+		<% }else{ %>
+		<li class="word bd-bottom">
+			<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" class="read" data-href="<%=data[i]['url']%>"><span class="type"><%=data[i]['catename']%></span><span class="book"><%=data[i]['title']%></span><span class="status">[<%=data[i]['completed']%>]</span><span class="readers"><em><%=data[i]['readCountFormated']%></em>人阅读</span></a>
+		</li>
+		<% }} %>
+	</ol>
+	<li class="more bd-top">
+		<a class="all nav" href="#books/women/女生爱看/2/0/11">更多<span class="bg"></span></a>
+	</li>
+</script>

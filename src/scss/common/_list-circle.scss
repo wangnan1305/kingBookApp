@@ -1,0 +1,51 @@
+@charset "utf-8";
+/**
+ *  Note: 圆圈模块导航styles
+ */
+
+.circle-classes-nav {
+	
+    padding: .481rem 0;
+    
+     ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        overflow: hidden;
+    }
+
+     li {
+        float: left;
+        width: 25%;
+         a {
+            display: block;
+            color: $text-base;
+            font-size: $font-size-main;
+        }
+    }
+
+     .bg {
+        width: 40px;
+        height: 40px;
+        border-radius: $border-radius-base;
+        margin: 0 auto 10px;
+        background: $bg-reseda url($path-img+'/sprite-nav.png') no-repeat;
+        background-size: 100%;
+        background-position: 0 -240px;
+    }
+
+     .bg.n0 {
+        background-color: $bg-orange;
+    }
+
+     .bg.n1 {
+        background-color: $bg-wathet;
+    }
+
+     .bg.n2 {
+        background-color: $bg-lightPink;
+    }
+}
+
+

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>读书频道</title>
+	<meta name="description" content="金山软件之小说频道">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/detail.min.css">
+	<link rel="stylesheet" type="text/css" href="css/common.min.css">
+<!-- 广告item视图模版 -->
+<script type="text/template" id="ad_item_view_template">
+	<span class="first"></span> <span class="last"></span> <em class="content">与废材谈恋爱?我才不是废材</em>
+</script>
+<!-- 图文书籍模版 -->
+<script type="text/template" id="book_detail_page_book_figure_item_template">
+	<li>
+		<a href="#book/detail/<%=bookid%>/<%=title%>" data-title="<%=title%>" data-bookid="<%=bookid%>" data-completed="<%=completed%>" data-score="<%=score%>" data-isfromweb="<%=isfromweb%>" data-href="<%=url%>">
+			<div class="r-img">
+				<img src="<%=imgUrl%>" />
+			</div>
+			<div class="r-name"> <%=title%> </div>
+		</a>
+	</li>
+</script>
+<!-- 书列表item视图模版 -->
+<script type="text/template" id="book_list_item_view_template">
+	<a href="#book/detail/<%=data['bookid']%>/<%=data['title']%>" data-title="<%=data['title']%>" data-bookid="<%=data['bookid']%>" data-completed="<%=data['completed']%>" data-score="<%=data['score']%>" data-isfromweb="<%=data['isfromweb']%>" class="read" data-href="<%=data['url']%>">
+		<%if(data.isFromWeb && data['completed'] == "完本"){%>
+        <div class="wanben"></div>
+        <%}%>
+        <img src="<%=data['imgUrl']%>" width="75" height="100" alt="书封面">
+		<div class="fig-word-right">
+            <h4><%=data['title']%></h4>
+            <p><span class="portrait"></span><span class="author"><%=data['author']%></span>
+            </p>
+            <p class="rate">
+                <span class="stars">
+                    <% for(var i=0;i<5;i++){ %>
+                        <%if(data.score<=0 || i<data.score){%>
+                        <em class="star"></em>
+                        <%}else{%>
+                        <em class="star gray"></em>
+                        <%}%>
+                    <%}%>
+                </span>
+                <span class="score"><%=data['score']%>分</span>
+                <span class="fromWeb">
+                    <%if(data.navtitle!=data.catename){%>
+                    <span class="type"><%=data.catename%></span>
+                    <%}%>
+                    <%if(data.isFromWeb){%>
+                    <span class="type words"><%=data['wordCountFormated']%>字</span>
+                    <%}%>
+                </span>
+            </p>
+            <p class="description"><%=data['description']%>
+            </p>
+        </div>
+	</a>
+</script>
+<!-- 书列表视图模版 -->
+<script type="text/template" id="book_list_view_template">
+	<div class="more-data"><img src="images/loading.gif" />正在加载中...</div>
+</script>
+<!-- 分类列表 -->
+<script type="text/template" id="classes_item_view_template">
+	<% for(var i=0;i<data.length;i++){ %>
+	<li class="entrances <%=data[i]['cateIconClass']%>">
+		<h4><span class="bg"></span><%=data[i]['cateClassName']%></h4>
+		<ul>
+			<% for(var j=0;j<data[i]['cateList'].length;j++){ %>
+				<% if((j+1)%3==0){ %>
+					<li class="third">
+				<% }else{ %>
+					<li class="bd-right">
+				<%}%>
+				<a data-groupname="<%=data[i]['cateClassName']%>" data-cateid="<%=data[i]['cateList'][j]['cateId']%>" data-catename="<%=data[i]['cateList'][j]['cateName']%>" class="nav" href="#books/class/<%=data[i]['cateList'][j]['cateName']%>/<%=data[i]['cateList'][j]['cateId']%>/0/<%=data[i]['cateList'][j]['stat_p5']%>/<%=data[i]['cateList'][j]['stat_p6']%>"><%=data[i]['cateList'][j]['cateName']%></a></li>
+			<%}%>
+		</ul>
+	</li>
+	<%}%>
+</script>
+<!-- 分类导航item视图模版 -->
+<script type="text/template" id="entrances_item_view_template">
+	<h3 class="section-h3">分类导航</h3>
+	<ul class="first">
+		<% for(var i=0;i<data.classes.length;i++){ %>
+			<% if(i>0 && (i+1)%5==0){ %>
+				<li class="fifth">
+			<% }else{ %>
+				<li class="bd-right">
+			<% } %>
+			<a data-cateid="<%=data.classes[i]['cateId']%>" data-catename="<%=data.classes[i]['cateName']%>" class="nav" href="#books/class/<%=data.classes[i]['cateName']%>/<%=data.classes[i]['cateId']%>"><%=data.classes[i]['cateName']%></a>
+			</li>
+		<%}%>
+	</ul>
+	<ul class="second">
+		<% for(var i=0;i<data.ranks.length;i++){ %>
+		<% if(i>0 && (i+1)%3==0){ %>
+			<li class="third">
+		<% }else{ %>
+			<li>
+		<% } %>
+			<a data-rankid="<%=data.ranks[i]['rankId']%>" data-rankname="<%=data.ranks[i]['rankName']%>" class="nav bd-wrap" href="#ranks/<%=data.ranks[i]['rankId']%>/<%=data.ranks[i]['rankName']%>"><%=data.ranks[i]['rankName']%></a>
+		</li>
+		<% } %>
+	</ul>
+</script>
+<!-- 首页底部item视图模版 -->
+<script type="text/template" id="footer_item_view_template">
+	电子读物的下载与销售均由<em>咪咕阅读</em>提供
+</script>
+<!-- 免费标签页面列表 -->
+<script type="text/template" id="free_item_view_template">
+	<%if(data){%>
+	<div class="time"><%=leavetime%></div>
+	<%for(var i=0;i<data.length;i++){%>
+		<%if(i<data.length-1){%>
+		<section class="item-view">
+			<h3 class="section-h3"><%=data[i]["title"]%></h3>
+			<ul>
+				<%for(var j=0;j<data[i]["book"].length;j++){%>
+					<%if((j+1)%3!=0){%>
+					<li class="fig time-free">
+					<%}else{%>
+					<li class="fig time-free third">
+					<%}%>
+					<figure>
+						<a href="#book/detail/<%=data[i]['book'][j]['bookid']%>/<%=data[i]['book'][j]['title']%>" data-title="<%=data[i]['book'][j]['title']%>" data-bookid="<%=data[i]['book'][j]['bookid']%>" data-score="<%=data[i]['book'][j]['score']%>" data-isfromweb="<%=data[i]['book'][j]['isfromweb']%>" data-completed="<%=data[i]['book'][j]['completed']%>" href="<%=data[i]['book'][j]['url']%>" data-section="<%=i%>" class="read">
+							<img src="<%=data[i]['book'][j]['imgUrl']%>" width="75" height="115" alt="">
+						</a>
+						<figcaption><%=data[i]['book'][j]['title']%></figcaption>
+					</figure>
+				</li>
+				<%}%>
+			</ul>
+	   </section>
+		<%}else{%>
+			<!-- 最后一个用列表显示 -->
+			<section class="content book-list">
+				<div class="rank-week">
+					<ul>
+						<h3 class="section-h3"><%=data[i]["title"]%></h3>
+						<%for(var j=0;j<data[i]["book"].length;j++){%>
+						<li class="fig-word time-free">
+							<a href="#book/detail/<%=data[i]['book'][j]['bookid']%>/<%=data[i]['book'][j]['title']%>" data-title="<%=data[i]['book'][j]['title']%>" data-bookid="<%=data[i]['book'][j]['bookid']%>" data-score="<%=data[i]['book'][j]['score']%>" data-isfromweb="<%=data[i]['book'][j]['isfromweb']%>" data-completed="<%=data[i]['book'][j]['completed']%>" href="<%=data[i]['book'][j]['url']%>" data-section="<%=i%>" class="read">
+								<img src="<%=data[i]['book'][j]['imgUrl']%>" width="75" height="100" alt="书封面">
+								
+                                <div class="fig-word-right">
+                                    <h4><%=data[i]['book'][j]['title']%></h4>
+                                    <p><span class="portrait"></span><span class="author"><%=data[i]['book'][j]['author']%></span>
+                                    </p>
+                                    <p class="rate">
+                                        <span class="stars">
+                                            <% for(var k=0;k<5;k++){ %>
+                                                <%if(k<data[i]['book'][j].score){%>
+                                                <em class="star"></em>
+                                                <%}else{%>
+                                                <em class="star gray"></em>
+                                                <%}%>
+                                            <%}%>
+                                        </span>
+                                        <span class="score"><%=data[i]['book'][j]['score']%>分</span>
+                                        <span class="fromWeb"><span class="bookType"></span></span>
+                                     </p>
+                                     <p class="description"><%=data[i]['book'][j]['description']%>
+                                    </p>
+                                </div>
+                                
+							</a>
+						</li>
+						<%}%>
+				   </ul>
+				</div>
+			</section>
+		<%}%>
+	<%}%>
+	<%}%>
+</script>
+<!-- 热搜榜item视图模版 -->
+<script type="text/template" id="hot_book_item_view_template">
+	<h3 class="section-h3">热搜榜<a class="all bd-wrap" href="javascript:void(0)">换一批</a></h3>
+	<ul>
+		<% for(var i=0;i<data.length;i++){ %>
+		<li class="item color<%=i%10%>">
+			<a href="#search/<%=data[i]['keyword']%>" class="read"><%=data[i]['keyword']%></a>
+		</li>
+		<% } %>
+	</ul>
+</script>
+<!-- 最近阅读item视图 -->
+<script type="text/template" id="last_read_item_view_template">
+	<div class="wrapper">
+		<span class="bg"></span> <span class="name">继续阅读: <em class="book"><%=data.title%></em><em class="indicator" style="display:none"></em></span> <span class="update-time" style="display:none"><time>2016-01-23</time>有更新</span>
+	</div>
+</script>
+<!-- 加载中视图 -->
+<script type="text/template" id="loading_view_template">
+	<div>
+		<p>加载中...</p>
+	</div>
+</script>
+<!-- 男生爱看item视图模版 -->
+<script type="text/template" id="man_item_view_template">
+	<h3 class="section-h3">男生爱看
+	</h3>
+	<ol>
+		<% for(var i=0;i<4;i++){ %>
+		<% if(i==0){ %>
+		<li class="fig-word bd-bottom">
+			<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" class="read" data-href="<%=data[i]['url']%>"><img src="<%=data[i]['imgUrl']%>" alt="小说封面" width="75" height="100"><h4><%=data[i]['title']%></h4><p class="line"><span class="portrait"></span><span class="author"><%=data[i]['author']%></span><span class="type bd-left"><%=data[i]['completed']%></span> <span class="readers"><em><%=data[i]['readCountFormated']%></em>人阅读</span></p><p class="description"><%=data[i]['description']%></p></a>
+		</li>
+		<% }else{ %>
+		<li class="word bd-bottom">
+			<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" class="read" data-href="<%=data[i]['url']%>"><span class="type"><%=data[i]['catename']%></span><span class="book"><%=data[i]['title']%></span><span class="status">[<%=data[i]['completed']%>]</span><span class="readers"><em><%=data[i]['readCountFormated']%></em>人阅读</span></a>
+		</li>
+		<% }} %>
+	</ol>
+	<li class="more bd-top">
+		<a class="all nav" href="#books/men/男生爱看/3/0/10">更多<span class="bg"></span></a>
+	</li>
+</script>
+<!-- 大分类item视图模版 -->
+<script type="text/template" id="navs_item_view_template">
+	<ul>
+		<% for(var i=0;i<3;i++){ %>
+		<li data-cateid="<%=data[i]['cateId']%>" data-catename="<%=data[i]['cateName']%>">
+			<a class="nav" href="#books/class/<%=data[i]['cateName']%>/<%=data[i]['cateId']%>" data-catename="<%=data[i]['cateName']%>"><div class="bg n<%=i%>" style="background-position: <%=data[i]['wordBackground']%>;"></div><%=data[i]['cateName']%></a>
+		</li>
+		<% } %>
+		<li data-cateid="0" data-catename="more">
+			<a id="more" class="nav" href="#main/class"><div class="bg"></div>更多</a>
+		</li>
+	</ul>
+</script>
+<!-- 新书首发item视图模版 -->
+<script type="text/template" id="new_book_item_view_template">
+	<h3 class="section-h3">新书首发</h3>
+	<ul>
+		<% for(var i=0;i<3;i++){ %>
+			<% if(i>0 && (i+1)%3==0){ %>
+				<li class="fig third">
+			<% }else{ %>
+				<li class="fig">
+			<% } %>
+			<figure>
+				<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" data-href="<%=data[i]['url']%>" class="read">
+					<img src="<%=data[i]['imgUrl']%>" width="75" height="115" alt="推荐图1">
+				</a>
+				<figcaption><%=data[i]["title"]%></figcaption>
+			</figure>
+		</li>
+		<% } %>
+	</ul>
+	<li class="more bd-top">
+		<a class="all nav" href="#books/newbook/新书首发/1/0/12">更多<span class="bg"></span></a>
+	</li>
+</script>
+<!-- 排行榜item视图模版 -->
+<script type="text/template" id="rank_item_view_template">
+	<% for(var i=0;i<data.length;i++){ %>
+	<li>
+		<a data-rankid="<%=data[i]['rankId']%>" data-rankname="<%=data[i]['rankName']%>" class="nav" href="#ranks/<%=data[i]['rankId']%>/<%=data[i]['rankName']%>" style="background-position: <%=data[i]['rankCoverBackround']%>"></a>
+		<ol>
+			<% for(var j=0;j<data[i]['books'].length;j++){ %>
+			<li>
+				<a href="#book/detail/<%=data[i]['books'][j]['bookid']%>/<%=data[i]['books'][j]['title']%>" data-rankid="<%=data[i]['rankId']%>" data-rankname="<%=data[i]['rankName']%>" data-title="<%=data[i]['books'][j]['title']%>" data-bookid="<%=data[i]['books'][j]['bookid']%>" data-completed="<%=data[i]['books'][j]['completed']%>" data-score="<%=data[i]['books'][j]['score']%>" data-href="<%=data[i]['books'][j]['url']%>" class="read">
+					<span class="order-id"><%=j+1%></span>
+					<% if(j==0){ %>
+						<span class="book active">
+					<% }else{ %>
+						<span class="book gray">
+					<% } %>
+					<%=data[i]['books'][j]['title']%></span>
+					<span class="count gray"><em><%=data[i]['books'][j]['readCountFormated']%></em>人阅读</span>
+				</a>
+			</li>
+			<%}%>
+		</ol>
+	</li>
+	<%}%>
+</script>
+<!-- 重磅推荐item视图模版 -->
+<script type="text/template" id="recommend_item_view_template">
+	<h3 class="section-h3">重磅推荐
+	</h3>
+	<ol>
+		<% for(var i=0;i<6;i++){ %>
+		<% if(i<3){ %>
+			<% if(i<2){ %>
+				<li class="fig">
+			<% }else{ %>
+				<li class="fig third">
+			<% } %>
+			<figure>
+				<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" data-href="<%=data[i]['url']%>" class="read">
+					<img src="<%=data[i]['imgUrl']%>" width="75" height="115" alt="推荐图1">
+				</a>
+				<figcaption><%=data[i]["title"]%></figcaption>
+			</figure>
+		</li>
+		<% }else{ %>
+			<% if(i<5){ %>
+				<li class="word bd-bottom">
+			<% }else{ %>
+				<li class="word third">
+			<% } %>
+		
+			<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" data-href="<%=data[i]['url']%>" class="read"><span class="book"><%=data[i]['title']%></span><span class="readers"><em><%=data[i]['readCountFormated']%></em>人阅读</span>
+			</a>
+		</li>
+		<% }} %>
+		<li class="more bd-top">
+			<a class="all nav" href="#books/recommend/重磅推荐/0/0/7">更多</a>
+		</li>
+	</ol>
+</script>
+<!-- 搜索页面历史记录关键字模版 -->
+<script type="text/template" id="search_page_history_item_template">
+	<li><a href="javascript:void(0)" data-keyword="<%=keyword%>" class="book search"><%=keyword%></a></li>
+</script>
+<!-- 搜索页面人搜词列表模版 -->
+<script type="text/template" id="search_page_hot_book_item_template">
+	<% for(var i=0;i<infos.length;i++){ %>
+	<li class="item color<%=i%10%>">
+		<a href="javascript:void(0)" data-keyword="<%=infos[i]['keyword']%>" class="read bd-wrap"><%=infos[i]['keyword']%></a>
+	</li>
+	<% } %>
+</script>
+<!-- 女生爱看item视图模版 -->
+<script type="text/template" id="women_item_view_template">
+	<h3 class="section-h3">女生爱看
+	</h3>
+	<ol>
+		<% for(var i=0;i<4;i++){ %>
+		<% if(i==0){ %>
+		<li class="fig-word bd-bottom">
+			<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" class="read" data-href="<%=data[i]['url']%>"><img src="<%=data[i]['imgUrl']%>" alt="小说封面" width="75" height="100"><h4><%=data[i]['title']%></h4><p class="line"><span class="portrait"></span><span class="author"><%=data[i]['author']%></span><span class="type bd-left"><%=data[i]['completed']%></span> <span class="readers"><em><%=data[i]['readCountFormated']%></em>人阅读</span></p><p class="description"><%=data[i]['description']%></p></a>
+		</li>
+		<% }else{ %>
+		<li class="word bd-bottom">
+			<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" class="read" data-href="<%=data[i]['url']%>"><span class="type"><%=data[i]['catename']%></span><span class="book"><%=data[i]['title']%></span><span class="status">[<%=data[i]['completed']%>]</span><span class="readers"><em><%=data[i]['readCountFormated']%></em>人阅读</span></a>
+		</li>
+		<% }} %>
+	</ol>
+	<li class="more bd-top">
+		<a class="all nav" href="#books/women/女生爱看/2/0/11">更多<span class="bg"></span></a>
+	</li>
+</script>
+<!-- 小编懂你item视图模版 -->
+<script type="text/template" id="xiaobian_item_view_template">
+	<h3 class="section-h3">小编懂你</h3>
+	<ul>
+		<% for(var i=0;i<6;i++){ %>
+			<% if(i>0 && (i+1)%3==0){ %>
+				<li class="fig third">
+			<% }else{ %>
+				<li class="fig">
+			<% } %>
+			<figure>
+				<a href="#book/detail/<%=data[i]['bookid']%>/<%=data[i]['title']%>" data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" data-completed="<%=data[i]['completed']%>" data-href="<%=data[i]['url']%>" class="read">
+					<img src="<%=data[i]['imgUrl']%>" width="75" height="115" alt="推荐图1">
+				</a>
+				<figcaption><%=data[i]["title"]%></figcaption>
+			</figure>
+		</li>
+		<% } %>
+	</ul>
+	<li class="more bd-top">
+		<a class="all nav" href="#books/xiaobian/小编懂你/0/0/9">更多<span class="bg"></span></a>
+	</li>
+</script>
+<!-- 书籍目录页面 -->
+<script type="text/template" id="book_catalog_page_template">
+
+ 	<header class="nav-bar">
+		<div class="left">
+			<a class="back" href="javascript:window.history.back()"></a> <strong>目录</strong>
+		</div>
+		<div class="n-right right">
+			<div class="read last-read">
+				<%if(reverse==0){%>
+				<a data-reverse="1" href="javascript:void(0)">降序</a>
+				<%}else{%>
+				<a data-reverse="0" href="javascript:void(0)">升序</a>
+				<%}%>
+			</div>
+		</div>
+	</header>
+
+
+	<!-- <header class="nav-bar">
+		<div class="n-left">
+			<div class="back"><a href="javascript:window.history.back();"></a></div>目录
+		</div>
+		<div class="n-right">
+			<div class="read">
+				<%if(reverse==0){%>
+				<a data-reverse="1" href="javascript:void(0)">降序</a>
+				<%}else{%>
+				<a data-reverse="0" href="javascript:void(0)">升序</a>
+				<%}%>
+			</div>
+		</div>
+	</header> -->
+	<%if(data){%>
+	<section class="list">
+		<div class="l-title">
+			<label class="all">共<%=totalsize%>章</label>
+			<%if(totalsize>100){%>
+			<label class="partition"><%=pagerLabel%></label>
+			<%}%>
+		</div>
+		<div class="l-cont">
+			<ul>
+			
+				<%for(var i=0;i<data.length;i++){%>
+					<%if(data[i]["feeStatus"] == 0 || data[i]["feeStatus"]=="0"){%>
+					<div class="bd-bottom"><a href="<%=data[i]['url']%>" target="_blank"><li><%=data[i]["chapterName"]%></li></a></div>
+					<%}else{%>
+					<div class="bd-bottom"><a href="<%=data[i]['url']%>" target="_blank"><li class="pay"><%=data[i]["chapterName"]%><label>$</label></li></a></div>
+					<%}%>
+				<%}%>	
+			</ul>
+		</div>
+		<div class="chapter">
+			<div class="close"></div>
+			<div class="c-cont">
+				<ul>
+				<%if(!reverse){ /* js */ %>
+					<%for(var i=0;i<totalpage;i++){%>
+					<%var label=(i*pagesize+1)+"-"+(i+1)*pagesize+"章节";%>
+					<%if(i>=totalpage-1){label=(i*pagesize+1)+"-"+totalsize+"章节";}%>
+					<li><a data-page="<%=i+1%>" href="javascript:void(0)"><%=label%></a></li>
+					<%}%>
+					<%}else{ %>
+						<%for(var i=totalpage-1;i>=0;i--){%>
+						<%var label=(totalsize-(totalpage-1-i)*pagesize)+"-"+(totalsize-(totalpage-i)*pagesize+1)+"章节";%>
+						<%if(i==0){label=(totalsize-(totalpage-1)*pagesize)+"-"+"01"+"章节";}%>
+						<li><a data-page="<%=totalpage-i%>" href="javascript:void(0)"><%=label%></a></li>
+						<%}%>
+					<%}%>
+				
+				</ul>
+			</div>
+		</div>
+	</section>
+	<%}else{%>
+	<section class="section-loading"><p>数据加载中...</p></section>
+	<%}%>
+</script>
+<!-- 书籍详情页面 -->
+<script type="text/template" id="book_detail_page_template">
+	
+    <header class="nav-bar">
+		<div class="left">
+			<a class="back" href="javascript:window.history.back()"></a> <strong><%=title%></strong>
+		</div>
+		<div class="right">
+			<a class="search" href="#search"></a> <a class="last-read" href="#latest-readed"><span>最近阅读</span></a>
+		</div>
+	</header>
+    
+	<%if(data){%>
+	<section class="book">
+		<div class="info">
+			<div class="i-cont bd-bottom">
+				<div class="i-intr">
+					<div class="i-left">
+						<img src="<%=data['imgUrl']%>" />
+					</div>
+					<div class="i-right">
+						<div class="i-right-top">
+							<p><%=title%></p>
+							<div class="i-right-star">
+								<span class="stars">
+									<% for(var i=0;i<5;i++){ %>
+										<%if(i<data.score){%>
+										<em class="star"></em>
+										<%}else{%>
+										<em class="star gray"></em>
+										<%}%>
+									<%}%>
+								</span>
+								<span class="score"><%=data['score']%>分</span>
+							</div>
+						</div>
+						<div class="i-right-bottom">
+							<p><%=data['author']%></p>
+							<p><%=data['catename']%> | <%=data['completed']%></p>
+							<p><%=data['wordCountFormated']%>字</p>
+						</div>
+					</div>
+				</div>
+				<div class="i-btns">
+					<div class="i-send">
+						<a href="javscript:void(0);">
+							发送至桌面
+						</a>
+					</div>
+					<%if(data['chapterUrl']){ %>
+					<div class="i-read">
+						<a data-p6="1" href="<%=data['chapterUrl']%>" target="_blank">
+							继续阅读
+						</a>
+					</div>
+					<%}else{%>
+					<div class="i-read">
+						<a data-p6="1" href="<%=data['url']%>" target="_blank">
+							开始阅读
+						</a>
+					</div>
+					<%}%>
+				</div>
+				<div class="i-syno">
+					<%=data["description"]%>
+					<div class="arrow">
+						<label></label>
+					</div>
+				</div>
+			</div>
+			<%if(catalog){%>
+			<div class="i-list">
+				<p class="i-title">目录 | 共<%=catalog["totalsize"]%>章</p>
+				<%if(catalog.lastChapter) {/* js */ %>
+				<p><a href="<%=catalog.lastChapter['url']%>"><span><%=catalog.lastChapter["chapterName"]%></span><label><%=catalog.lastChapter['updateTimeAgo']%></label></a></p>
+				<%} /* js */ %>
+				<%for(var i=0;i<catalog.list.length;i++){%>
+				<p><a href="<%=catalog.list[i]['url']%>"><%=catalog.list[i]["chapterName"]%></a></p>
+				<%}%>
+			</div>
+			<div class="common-go bd-top">
+				<a href="#book/catalog/<%=data['bookid']%>">查看更多目录</a>
+			</div>
+			<%}%>
+		</div>
+		<div class="recommend">
+			<%if(authorBooks&&authorBooks.length>0){%>
+			<div class="r-cont">
+				<div class="r-title"> 作者还写过 </div>
+				<div class="r-list">
+					<ul>
+						<%for(var i=0;i<authorBooks.length;i++){%>
+						<li>
+							<a href="#book/detail/<%=authorBooks[i]['bookid']%>/<%=authorBooks[i]['title']%>">
+								<div class="r-img">
+									<img src="<%=authorBooks[i]['imgUrl']%>" />
+								</div>
+							</a>
+							<div class="r-name"> <%=authorBooks[i]["title"]%> </div>
+						</li>
+						<%}%>
+					</ul>
+				</div>
+			</div>
+			<%if(authorBooksTotalSize>3){%>
+			<div class="common-go bd-top">
+				<a href="#books/authorbooks/作者还写过/<%=data['authorId']%>/0/100">查看全部</a>
+			</div>
+			<%}%>
+			<%}%>
+		</div>
+		<div id="reader_books_section" class="recommend">
+			<%if(readerBooks){%>
+			<div class="r-cont">
+				<div class="r-title"> 书友还读过 </div>
+				<div class="r-list">
+					<ul>
+						<%for(var i=0;i<readerBooks.length;i++){%>
+						<li>
+							<a href="#book/detail/<%=readerBooks[i]['bookid']%>/<%=readerBooks[i]['title']%>">
+								<div class="r-img">
+									<img src="<%=readerBooks[i]['imgUrl']%>" />
+								</div>
+							</a>
+							<div class="r-name"> <%=readerBooks[i]["title"]%> </div>
+						</li>
+						<%}%>
+					</ul>
+				</div>
+			</div>
+			<div class="common-go bd-top">
+				<a href="javascript:void(0)">换一批</a>
+			</div>
+			<%}%>
+		</div>
+	</section>
+	<section class="book-detail-console-footer">
+		<div class="layer">
+			<div class="l-read">
+				<a href="javscript:void(0);">
+					发送至桌面
+				</a>
+			</div>
+			<%if(data['chapterUrl']){%>
+			<div class="l-send">
+				<a data-p6="10" href="<%=data['chapterUrl']%>" target="_blank">
+					继续阅读
+				</a>
+			</div>
+			<%}else{%>
+			<div class="l-send">
+				<a data-p6="10" href="<%=data['url']%>" target="_blank">
+					开始阅读
+				</a>
+			</div>
+			<%} /* js */ %>
+		</div>
+	</section>
+	<footer class="footer">
+		【图书信息】书籍来源：咪咕数字传媒有限公司
+	</footer>
+	<%}else{%>
+		<p class="section-loading" style="color: #999;font-size: .35rem; margin: 0;padding: 0;position: absolute;left: 0;right: 0;top: 50%;height: .5rem;line-height: .5rem; margin-top: -.25rem;text-align: center;">加载中...</p>  
+	<%} /* js */ %>
+</script>
+<!-- 一般书籍列表页面视图 -->
+<script type="text/template" id="book_list_page_template">
+	<header class="nav-bar">
+		<div class="left">
+			<a class="back" href="javascript:window.history.back();"></a> <strong><%=title%></strong>
+		</div>
+		<div class="right">
+			<a class="search" href="#search"></a> <a class="last-read" href="#latest-readed"><span>最近阅读</span></a>
+		</div>
+	</header>
+	<section id="<%=pageid%>" class="content book-list">
+	</section>
+</script>
+<!-- 最近阅读页面 -->
+<script type="text/template" id="last_read_page_template">
+	<header class="nav-bar">
+		<div class="left">
+			<a class="nav back" href="javascript:void(0)"></a> <strong><span>最近阅读</span></strong>
+		</div>
+		<div class="right">
+			<a class="search" href="#search"></a> <a class="book-shop" href="#"><span>书城</span></a>
+		</div>
+	</header>
+	<section class="content">
+		<%if(data&&data.length>0){%>
+		<div class="item-view book-list">
+			<ol>
+				<% for(var i=0;i<data.length;i++){ %>
+					<% if(i>0 && (i+1)%3==0){ %>
+						<li class="fig third">
+					<% }else{ %>
+						<li class="fig">
+					<% } %>
+					<figure>
+						<a data-title="<%=data[i]['title']%>" data-bookid="<%=data[i]['bookid']%>" href="<%=data[i]['url']%>" class="read">
+							<img src="<%=data[i]['imgUrl']%>" width="75" height="115" alt="推荐图1">
+						</a>
+						<figcaption><%=data[i]["title"]%></figcaption>
+					</figure>
+				</li>
+				<% } %>
+			</ol>
+		</div>
+		<%}else if(dataisloaded){%>
+		<div class="item-view empty">
+			<div class="bg"></div>
+			<p class="title">读书是世界上门槛最低的高贵</p>
+			<a class="nav" href="#">找好书,去书城逛逛</a>
+		</div>
+		<%}%>
+	</section>
+</script>
+<!-- 首页html -->
+<script type="text/template" id="main_page_template">
+	<div class="nav-cont">
+		<header class="nav-bar">
+			<div class="left">
+				<a class="back" href="#close"></a> <strong class="bookshop"></strong>
+			</div>
+			<div class="right">
+				<a class="search" href="#search"></a> <a class="last-read" href="#latest-readed"><span>最近阅读</span></a>
+			</div>
+		</header>
+		<nav class="nav-tabbar top">
+			<ul>
+				<li id="favorite_tab_link" class="active" data-target="favorite"><a class="nav" href="#main/favorite">精选</a></li>
+				<li id="ranking_tab_link" class="" data-target="ranking"><a class="nav" href="#main/ranking">排行</a></li>
+				<li id="class_tab_link" class="" data-target="class"><a class="nav" href="#main/class">分类</a></li>
+				<li id="free_tab_link" class="" data-target="free"><a class="nav" href="#main/free">免费</a></li>
+			</ul>
+		</nav>
+	</div>
+	<section id="favorite" class="content">
+	</section>
+	<section id="ranking" class="content main-page-rank" style="display:none">
+		
+	</section>
+	<section id="class" class="content main-page-classes" style="display:none">
+		
+	</section>
+	<section id="free" class="content main-page-free" style="display:none">
+		
+	</section>
+</script>
+<!-- 具体排行榜页面视图 -->
+<script type="text/template" id="rank_list_page_template">
+	<header class="nav-bar">
+		<div class="left">
+			<a class="nav back" href="javascript:void(0)"></a> <strong><%=title%></strong>
+		</div>
+		<div class="right">
+			<a class="search" href="#search"></a> <a class="last-read" href="#latest-readed"><span>最近阅读</span></a>
+		</div>
+	</header>
+	<!-- <nav class="nav-tabbar top">
+		<ul>
+			<li class="active">
+				<a class="nav" href="javascript:void(0)" data-id="<%=rankId%>" data-name="<%=rankName%>">周榜</a>
+			</li>
+			<li class="">
+				<a class="nav" href="javascript:void(0)" data-id="<%=rankId%>" data-name="<%=rankName%>">月榜</a>
+			</li>
+			<li class="">
+				<a class="nav" href="javascript:void(0)" data-id="<%=rankId%>" data-name="<%=rankName%>">总榜</a>
+			</li>
+		</ul>
+	</nav> -->
+	<section class="content book-list">
+		<ul class="rank">
+			<div class="rank-week"></div>
+			<div class="rank-month" style="display:none"></div>
+			<div class="rank-all" style="display:none"></div>
+		</ul>
+	</section>
+</script>
+<!-- 搜索页面 -->
+<script type="text/template" id="search_page_template">
+	<header class="nav-bar">
+		<a class="nav back" href="javascript:void(0)">取消</a>
+		<form class="search-bar" method="get" onsubmit="return false;" id="searchBox">
+			<label for="keyWord"></label>
+			<input id="keyWord" placeholder="<%=data['recommend']%>"> <button type="button"></button>
+		</form>
+	</header>
+	<section class="result book-list" style="display: none;">
+		<p class="not-found">没有找到您想要的书哦~</p>
+		<section class="list">
+			<h3>总共找到<em class="book-count">0</em>本书</h3>
+			<ul></ul>
+			<div class="page-control">
+				<button class="prev" disabled="">上一页</button> <button class="next">下一页</button>
+			</div>
+		</section>
+	</section>
+	<section class="hot-book">
+		<h3>大家都在搜 <button class="bd-wrap">换一批</button></h3>
+		<ul>
+			<% for(var i=0;i<data["hotBook"].length;i++){ %>
+			<li class="item color<%=i%10%>">
+				<a href="javascript:void(0)" data-keyword="<%=data['hotBook'][i]['keyword']%>" class="read bd-wrap"><%=data["hotBook"][i]['keyword']%></a>
+			</li>
+			<% } %>
+		</ul>
+	</section>
+	<section class="search-history">
+		<h3>搜索历史 <button type="reset" class="bd-wrap">清空</button></h3>
+		<ul>
+			<% for(var i=0;i<data.historyList.length;i++){ %>
+			<li><a href="javascript:void(0)" data-keyword="<%=data.historyList[i]['keyword']%>" class="book search"><%=data.historyList[i]["keyword"]%></a></li>
+			<%}%>
+		</ul>
+	</section>
+</script>
+</head>
+<body>
+	<script type="text/javascript" src="js/lib.min.js"></script>
+	<script type="text/javascript" src="js/app.min.js"></script>
+</body>
+</html>
